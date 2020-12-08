@@ -1,5 +1,19 @@
 <?php
 include "header.php";
+include "tbl_user.php";
+$error="";
+$user=new tbl_user();
+if (isset($_POST['submit'])) {
+	$email=$_POST['email'];
+	$password=$_POST['password'];
+	$email=trim($email);
+	$password=md5(trim($password)); 
+	$error=$password;
+	$data=$user->userLogin($email,$password);
+	if ($data==false) {
+		$error="Email or Password dosen't match";
+	}
+}
 ?>
 <!---login--->
 <div class="content">
@@ -15,18 +29,19 @@ include "header.php";
 					<div class="col-md-6 login-right">
 						<h3>registered</h3>
 						<p>If you have an account with us, please log in.</p>
-						<form>
+						<form action='login.php' method="post">
 							<div>
 							<span>Email Address<label>*</label></span>
-							<input type="text"> 
+							<input type="text" id="email" name="email" required> 
 							</div>
 							<div>
 							<span>Password<label>*</label></span>
-							<input type="password"> 
+							<input type="password" name="password" id="password" required> 
 							</div>
 							<a class="forgot" href="#">Forgot Your Password?</a>
-							<input type="submit" value="Login">
+							<input type="submit" value="Login" id="submit" name="submit">
 						</form>
+						<div class="error-msg"><?php echo(isset($error))? $error: "" ?></div>
 					</div>	
 					<div class="clearfix"> </div>
 				</div>

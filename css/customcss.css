@@ -4,3 +4,17 @@
 .logo-color-right{
     color: #585CA7;
 }
+#fa-fa-font-size{
+    font-size: 18px;
+}
+.error-msg{
+    color: red;
+}
+#answer-signup{
+    display: none;
+}
+#error-password{
+    display: none;
+    color: #585CA7;
+    font-size: 11px;
+}
