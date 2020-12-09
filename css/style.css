@@ -1563,12 +1563,20 @@ a.button4:hover {
 	display: block;
 	text-transform: uppercase;
 }
-.register-top-grid input, .register-bottom-grid input, #security-question {
+.register-top-grid input, .register-bottom-grid input{
 	border: 1px solid #555;
 	outline-color:#FD9F3E;
 	width: 96%;
 	font-size: 1em;
     padding: 0.5em;
+    background-color: white;
+}
+#security-question {
+    border: 1px solid #555;
+	outline-color:#FD9F3E;
+	width: 96%;
+	font-size: 1em;
+    padding: 6px;
     background-color: white;
 }
 .checkbox {

@@ -11,12 +11,16 @@ class tbl_user{
         $data=$this->conn->query($sql);
         if ($data->num_rows>0){
             $row=$data->fetch_assoc();
-		    if($row['is_admin']==0) {
+		    if($row['is_admin']==0 && $row['active']==1) {
                 $_SESSION['user']=array($row['email'],$row['id']);
 			    header('Location:index.php');
             }
+            elseif($row['is_admin']==1 && $row['active']==1) {
+                $_SESSION['admin']=array($row['id'],$row['email'],$row['name']);
+			    header('Location:admin/');
+            }
             else{
-                return false;
+                return "please verify your mobile and/or email to get access";
             }
         }
         return false;
@@ -24,9 +28,9 @@ class tbl_user{
     public function duplicateDetails($email,$mobile) {
         $sql="SELECT * FROM `tbl_user`";
         $data=$this->conn->query($sql);
-        if ($data->num_rows) {
+        if ($data->num_rows>0) {
             while($row=$data->fetch_assoc()) {
-                if ($row['email']==$email || $row['mobile']=$mobile) {
+                if ($row['email']==$email || $row['mobile']==$mobile) {
                     return true;
                 }
             }
