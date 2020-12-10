@@ -1,15 +1,15 @@
 <?php
-include_once "Dbcon.php";
-class tbl_user{
+include_once "admin/Dbcon.php";
+class tbl_user {
     public $conn;
     public function __construct(){
         $dbcon=new Dbcon();
         $this->conn=$dbcon->createConnection();
     }
-    public function userLogin($email,$password){
+    public function userLogin($email, $password){
         $sql="SELECT * FROM `tbl_user` WHERE `email`='$email' AND `password`='$password'";
         $data=$this->conn->query($sql);
-        if ($data->num_rows>0){
+        if ($data->num_rows>0) {
             $row=$data->fetch_assoc();
 		    if($row['is_admin']==0 && $row['active']==1) {
                 $_SESSION['user']=array($row['email'],$row['id']);

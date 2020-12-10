@@ -4,6 +4,12 @@ include "tbl_user.php";
 $success="";
 $error="";
 $user=new tbl_user();
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+require '/home/cedcoss/vendor/autoload.php';
+
+
 if (isset($_POST['submit'])){
 	$name=trim($_POST['name']);
 	$email=trim($_POST['email']);
@@ -20,7 +26,78 @@ if (isset($_POST['submit'])){
 		$data=$user->userSignup($name,$email,$mobile,$security_question,$answer,$password);
 		if ($data!=false){
 			$success="sign up completed";
-			echo "<script>alert('signup completed please verify your email and/or phone no. to get access.');</script>";
+			// echo "<script>alert('signup completed please verify your email and/or phone no. to get access.');</script>";
+
+			$otp = rand(1000,9999);
+			$_SESSION['otp']=$otp;
+			$mail = new PHPMailer();
+			try {
+				$mail->isSMTP(true);
+				$mail->Host = 'smtp.gmail.com';
+				$mail->SMTPAuth = true;
+				$mail->Username = 'cedcossarjun1023@gmail.com';
+				$mail->Password = 'Cedcoss@1023';
+				$mail->SMTPSecure = 'tls';
+				$mail->Port = 587;
+
+				$mail->setfrom('cedcossarjun1023@gmail.com', 'CedHosting');
+				$mail->addAddress($email);
+				$mail->addAddress($email, $name);
+
+				$mail->isHTML(true);
+				$mail->Subject = 'Account Verification';
+				$mail->Body = 'Hi User,Here is your otp for account verification: '.$otp;
+				$mail->AltBody = 'Body in plain text for non-HTML mail clients';
+				$mail->send();
+				// header('location: verification.php?email=' . $email);
+			} catch (Exception $e) {
+				echo "Mailer Error: " . $mail->ErrorInfo;
+			}
+
+
+
+
+			/**mobile otp */
+
+			$fields = array(
+				"sender_id" => "FSTSMS",
+				"message" => "This is Test message" . $otp,
+				"language" => "english",
+				"route" => "p",
+				"numbers" => "$mobile",
+			);
+			
+			$curl = curl_init();
+			
+			curl_setopt_array($curl, array(
+			  CURLOPT_URL => "https://www.fast2sms.com/dev/bulk",
+			  CURLOPT_RETURNTRANSFER => true,
+			  CURLOPT_ENCODING => "",
+			  CURLOPT_MAXREDIRS => 10,
+			  CURLOPT_TIMEOUT => 30,
+			  CURLOPT_SSL_VERIFYHOST => 0,
+			  CURLOPT_SSL_VERIFYPEER => 0,
+			  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			  CURLOPT_CUSTOMREQUEST => "POST",
+			  CURLOPT_POSTFIELDS => json_encode($fields),
+			  CURLOPT_HTTPHEADER => array(
+				"authorization: oJPvrNweydA1Kc4VkQG2pCTE8jb5q7UBZgWYtixDfhnM9sH6aSUkDYyuxdinW9cgoAaz8XFlNJ1vHLpM",
+				"accept: */*",
+				"cache-control: no-cache",
+				"content-type: application/json"
+			  ),
+			));
+			
+			$response = curl_exec($curl);
+			$err = curl_error($curl);
+			
+			curl_close($curl);
+			
+			if ($err) {
+			  echo "cURL Error #:" . $err;
+			} else {
+			  echo $response;
+			}
 		}
 	}
 }
@@ -35,58 +112,7 @@ if (isset($_POST['submit'])){
 <!--script-->
 </head>
 <body>
-	<!---header--->
-	<div class="header">
-			<div class="container">
-				<nav class="navbar navbar-default">
-					<div class="container-fluid">
-			<!-- Brand and toggle get grouped for better mobile display -->
-						<div class="navbar-header">
-							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-								<i class="sr-only">Toggle navigation</i>
-								<i class="icon-bar"></i>
-								<i class="icon-bar"></i>
-								<i class="icon-bar"></i>
-							</button>				  
-							<div class="navbar-brand">
-								<h1><a href="index.php"><img src="images/logo.png" alt="" width="80" height="80"></a></h1>
-							</div>
-						</div>
-
-			<!-- Collect the nav links, forms, and other content for toggling -->
-						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-							<ul class="nav navbar-nav">
-								<li><a href="index.php">Home <i class="sr-only">(current)</i></a></li>
-								<li><a href="about.php">About</a></li>
-								<li><a href="services.php">Services</a></li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hosting<i class="caret"></i></a>
-									<ul class="dropdown-menu">
-										<li><a href="linuxhosting.php">Linux hosting</a></li>
-										<li><a href="wordpresshosting.php">WordPress Hosting</a></li>
-										<li><a href="windowshosting.php">Windows Hosting</a></li>
-										<li><a href="cmshosting.php">CMS Hosting</a></li>
-									</ul>			
-								</li>
-								<li><a href="pricing.php">Pricing</a></li>
-								<li><a href="blog.php">Blog</a></li>
-								<li><a href="contact.php">Contact</a></li>
-								<li><a href="#" id="fa-fa-font-size"><i class="fa fa-shopping-cart"></i></a></li>
-								<?php
-								if (isset($_SESSION['user'])) {
-									echo '<li><a href="logout.php">Logout</a></li>';
-								}
-								else {
-									echo '<li class="active"><a href="login.php">Login</a></li>';
-								}
-								?>
-							</ul>	  
-						</div><!-- /.navbar-collapse -->
-					</div><!-- /.container-fluid -->
-				</nav>
-			</div>
-		</div>
-	<!---header--->
+<?php include_once "commonnav.php";?>
 <!---login--->
 <div class="content">
 <!-- registration -->
