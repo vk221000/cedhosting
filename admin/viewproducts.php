@@ -15,6 +15,8 @@
 -->
 <?php
 include "header.php";
+include_once 'tbl_product.php';
+$product=new tbl_product();
 ?>
   <!-- Main content -->
   <div class="main-content" id="panel">
@@ -326,6 +328,9 @@ include "header.php";
             <div class="card bg-secondary shadow border-0 mb-0">
               <div class="card-header bg-white pb-5">
                 <div class="text-muted text-center mb-3">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
                     <h1 class="mb-0">Create New Product</h1>
                     <div class="mb-0">Enter Product Details </div>
                       <small class="important-field"> * Mandatory Fields</small>
@@ -333,12 +338,19 @@ include "header.php";
                   </div>
                 </div>
                 <div class="pl-lg-4">
-                  <div class="row">
+                  <div class="row pr-3">
                     <div class="form-group col-lg-6">
                       <label for="inputState">Select Product Category<span class="important-field"> *</span></label>
                       <select id="inputState" class="form-control" name="productcategory">
                         <option value="Please select">Please select</option>
-                        <option value="2">Linux Hosting</option><option value="3">Windows Hosting</option><option value="9">CMS Hosting</option><option value="10">Mac Hosting</option><option value="11">WordPress Hosting</option>
+                        <?php
+                        $data=$product->getSubCategoryNav();
+                        if ($data!=false) {
+                            for ($i=0;$i<count($data);$i++) {
+                                echo '<option value="'.$data[$i]['id'].'">'.$data[$i]['prod_name'].'</option>';
+                            }
+                        }
+                        ?>
                       </select>
                       <div class="invalid-feedback">
                         Please Select a Product Category.
@@ -369,7 +381,7 @@ include "header.php";
                       </div>
                     </div>
                   </div>
-                  <div class="row">
+                  <div class="row pr-3">
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="monthlyprice">Enter Monthly Price<span class="important-field"> *</span></label>
@@ -390,7 +402,7 @@ include "header.php";
                         </div>
                       </div>  
                     </div>   
-                    <div class="row">
+                    <div class="row pr-3 pl-3">
                       <div class="col-lg-6">
                         <div class="form-group">
                           <label class="form-control-label" for="sku">SKU<span class="important-field"> *</span></label>
@@ -411,7 +423,7 @@ include "header.php";
                       </div>
                     </div>
                   </div>
-                  <div class="row">
+                  <div class="row pr-3 pl-3">
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="webspace">Web Space(in GB)<span class="important-field"> *</span></label>
@@ -434,7 +446,7 @@ include "header.php";
                     </div>
                   </div> 
                 </div>  
-                <div class="row">
+                <div class="row pr-3 pl-3">
                   <div class="col-lg-6">
                     <div class="form-group">
                       <label class="form-control-label" for="freedomain">Free Domain<span class="important-field"> *</span> </label>
@@ -456,7 +468,7 @@ include "header.php";
                   </div>
                 </div>
               </div>
-              <div class="row">
+              <div class="row pr-3 pl-3">
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="mailbox">Mailbox<span class="important-field"> *</span> </label>
@@ -468,7 +480,8 @@ include "header.php";
                   </div>
                 </div>
               </div>
-            <div class="text-center">
+            <div class="text-center pb-4">
+            <button type="button" class="btn btn-danger mt-4" data-dismiss="modal">Close</button>
               <input type="submit" class="btn btn-primary mt-4" id="createcategory" value="Create Category" name="submit" disabled="">
             </div>
           </form>
@@ -591,9 +604,17 @@ include "header.php";
             alert("edit failed");
           }
           else {
-            
-            alert(msg);
-            console.log(msg);
+              $('#inputState').val(msg['prod_parent_id']).attr("selected", "selected");
+              $('#productname').val(msg['prod_name']);
+              $('#pageurl').val(msg['link']);
+              $('#monthlyprice').val(msg['mon_price']);
+              $('#annualprice').val(msg['annual_price']);
+              $('#sku').val(msg['sku']);
+              $('#webspace').val(msg['webspace']);
+              $('#bandwidth').val(msg['bandwidth']);
+              $('#freedomain').val(msg['freedomain']);
+              $('#languagetechnology').val(msg['languagetechnology']);
+              $('#mailbox').val(msg['mailbox']);
           }
         },
         error: function(){

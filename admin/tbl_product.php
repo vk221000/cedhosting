@@ -96,7 +96,7 @@ class tbl_product{
     }
     public function manageProductsBYCategory($id, $action) {
         if ($action=='edit') {
-            $sql="SELECT `tbl_product`.*,`tbl_product_description`.* FROM tbl_product JOIN tbl_product_description ON `tbl_product`.`id` = '$id'";
+            $sql="SELECT `tbl_product`.*,`tbl_product_description`.* FROM tbl_product JOIN tbl_product_description ON `tbl_product`.`id` = `tbl_product_description`.`prod_id` WHERE `tbl_product`.`id`='$id'";
             $data=$this->conn->query($sql);            
             if ($data->num_rows>0){
                 $arr=array();
@@ -113,7 +113,7 @@ class tbl_product{
                     $freedomain=$decoded_description->{'freedomain'};
                     $languagetechnology=$decoded_description->{'languagetechnology'};
                     $mailbox=$decoded_description->{'mailbox'};
-                    $arr=array("prod_id"=>$row['prod_id'],$row['prod_parent_id'],$row['prod_name'],$row['link'],$available,$row['prod_launch_date'],$webspace,$bandwidth,$freedomain,$languagetechnology,$mailbox);
+                    $arr=array("prod_id"=>$row['prod_id'],"sku"=>$row['sku'],"mon_price"=>$row['mon_price'],"annual_price"=>$row['annual_price'],"prod_parent_id"=>$row['prod_parent_id'],"prod_name"=>$row['prod_name'],"link"=>$row['link'],"available"=>$available,"prod_launch_date"=>$row['prod_launch_date'],"webspace"=>$webspace,"bandwidth"=>$bandwidth,"freedomain"=>$freedomain,"languagetechnology"=>$languagetechnology,"mailbox"=>$mailbox);
                 }
                 return $arr;
             }
