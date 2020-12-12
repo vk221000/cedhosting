@@ -14,6 +14,29 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
 <?php
+include_once 'tbl_product.php';
+$product=new tbl_product();
+if (isset($_POST['submit'])){
+  $productcategory=$_POST['productcategory'];
+  $productname=$_POST['productname'];
+  $pageurl=$_POST['pageurl'];
+  $monthlyprice=$_POST['monthlyprice'];
+  $annualprice=$_POST['annualprice'];
+  $sku=$_POST['sku'];
+  $webspace=$_POST['webspace'];
+  $bandwidth=$_POST['bandwidth'];
+  $freedomain=$_POST['freedomain'];
+  $languagetechnology=$_POST['languagetechnology'];
+  $mailbox=$_POST['mailbox'];
+  $data=$product->productDescriptionAddition($productcategory, $productname, $pageurl, $monthlyprice, $annualprice, $sku, $webspace, $bandwidth,  $freedomain, $languagetechnology, $mailbox);
+  if ($data!=false){
+    echo "<script>alert('product Description added successfully');</script>";
+  } else {
+    echo "<script>alert('Product Description Addition Failed');</script>";
+  }
+}
+?>
+<?php
 include_once "header.php";
 include_once 'tbl_product.php';
 $product=new tbl_product();
@@ -262,12 +285,12 @@ $product=new tbl_product();
         <div class="header-body">
           <div class="row align-items-center py-4">
             <div class="col-lg-6 col-7">
-              <h6 class="h2 text-white d-inline-block mb-0">Default</h6>
+              <h6 class="h2 text-white d-inline-block mb-0">AddProduct</h6>
               <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                 <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                   <li class="breadcrumb-item"><a href="index.php"><i class="fas fa-home"></i></a></li>
                   <li class="breadcrumb-item"><a href="index.php">Dashboards</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">AdminDashboard</li>
+                  <li class="breadcrumb-item active" aria-current="page">AddProduct</li>
                 </ol>
               </nav>
             </div>
@@ -314,42 +337,49 @@ $product=new tbl_product();
               
             </div>
             <div class="card-body">
-              <form>
-              
+              <form action="addproduct.php" method="post" onsubmit="return(validateAddProduct());">
               <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-8">
                             <h1 class="mb-0">Create New Product</h1>
                             <div class="mb-0">Enter Product Details </div>
+                            <small class="important-field"> * Mandatory Fields</small>
                             </div>
                         </div>
                     </div>
                 <div class="pl-lg-4">
                   <div class="row">
                   <div class="form-group col-lg-6">
-                    <label for="inputState">Select Product Category</label>
-                    <select id="inputState" class="form-control">
-                        <option selected>Please select</option>
+                    <label for="inputState">Select Product Category<span class="important-field"> *</span></label>
+                    <select id="inputState" class="form-control" name="productcategory">
+                        <option value="Please select">Please select</option>
                         <?php
                         $data=$product->getSubCategoryNav();
                         if ($data!=false) {
                             for ($i=0;$i<count($data);$i++) {
-                                echo '<option>'.$data[$i]['prod_name'].'</option>';
+                                echo '<option value="'.$data[$i]['id'].'">'.$data[$i]['prod_name'].'</option>';
                             }
                         }
                         ?>
                     </select>
+                    <div class="invalid-feedback">
+                      Please Select a Product Category.
+                    </div>
+                    
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-email">Enter Product Name</label>
-                        <input type="email" id="input-email" class="form-control" placeholder="jesse@example.com">
+                        <label class="form-control-label" for="productname">Enter Product Name<span class="important-field"> *</span></label>
+                        <input type="text" id="productname" class="form-control" placeholder="product Name" name="productname">
+                          <div class="invalid-feedback">
+                            Please provide a valid Product Name.
+                          </div>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-first-name">Page URL</label>
-                        <input type="text" id="input-first-name" class="form-control" placeholder="First name" value="Lucky">
+                        <label class="form-control-label" for="pageurl">Page URL</label>
+                        <input type="text" id="pageurl" class="form-control" placeholder="Page URL" name="pageurl">
                       </div>
                     </div>
                   </div>
@@ -365,14 +395,22 @@ $product=new tbl_product();
                     <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-last-name">Enter Monthly Price</label>
-                        <input type="text" id="input-last-name" class="form-control" placeholder="Last name" value="Jesse">
+                        <label class="form-control-label" for="monthlyprice">Enter Monthly Price<span class="important-field"> *</span></label>
+                        <input type="number" id="monthlyprice" class="form-control" placeholder="Monthly Price" name="monthlyprice">
+                        <small class="text-muted">This would be Monthly Plan</small>
+                        <div class="invalid-feedback">
+                          Please Enter valid Monthly price.
+                        </div>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-last-name">Enter Annual Price </label>
-                        <input type="text" id="input-last-name" class="form-control" placeholder="Last name" value="Jesse">
+                        <label class="form-control-label" for="annualprice">Enter Annual Price<span class="important-field"> *</span> </label>
+                        <input type="number" id="annualprice" class="form-control" placeholder="Annual Price" name="annualprice">
+                        <small class="text-muted">This would be Annual Price</small>
+                        <div class="invalid-feedback">
+                          Please Enter Valid Annual Price.
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -382,8 +420,11 @@ $product=new tbl_product();
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-last-name">SKU</label>
-                        <input type="text" id="input-last-name" class="form-control" placeholder="Last name" value="Jesse">
+                        <label class="form-control-label" for="sku">SKU<span class="important-field"> *</span></label>
+                        <input type="text" id="sku" class="form-control" placeholder="SKU" name="sku">
+                        <div class="invalid-feedback">
+                          Please Enter valid SKU.
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -399,14 +440,22 @@ $product=new tbl_product();
                     <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-last-name">Web Space(in GB)</label>
-                        <input type="text" id="input-last-name" class="form-control" placeholder="Last name" value="Jesse">
+                        <label class="form-control-label" for="webspace">Web Space(in GB)<span class="important-field"> *</span></label>
+                        <input type="number" id="webspace" class="form-control" placeholder="Web Space" name="webspace">
+                        <small class="text-muted">Enter 0.5 for 512 MB</small>
+                        <div class="invalid-feedback">
+                          Please Enter Valid Web Space.
+                        </div>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-last-name">Bandwidth (in GB) </label>
-                        <input type="text" id="input-last-name" class="form-control" placeholder="Last name" value="Jesse">
+                        <label class="form-control-label" for="bandwidth">Bandwidth (in GB)<span class="important-field"> *</span></label>
+                        <input type="number" id="bandwidth" class="form-control" placeholder="Bandwidth" name="bandwidth">
+                        <small class="text-muted">Enter 0.5 for 512 MB</small>
+                        <div class="invalid-feedback">
+                          Please Enter bandwidth.
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -414,30 +463,41 @@ $product=new tbl_product();
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-last-name">Free Domain </label>
-                        <input type="text" id="input-last-name" class="form-control" placeholder="Last name" value="Jesse">
+                        <label class="form-control-label" for="freedomain">Free Domain<span class="important-field"> *</span> </label>
+                        <input type="number" id="freedomain" class="form-control" placeholder="Free Domain" name="freedomain">
+                        <small class="text-muted">Enter 0 if no domain available in this service</small>
+                        <div class="invalid-feedback">
+                          Please Enter Valid Free Domain.
+                        </div>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-last-name">Language/ Technology Support </label>
-                        <input type="text" id="input-last-name" class="form-control" placeholder="Last name" value="Jesse">
+                        <label class="form-control-label" for="languagetechnology">Language/ Technology Support<span class="important-field"> *</span> </label>
+                        <input type="text" id="languagetechnology" class="form-control" placeholder="Language or Technology Support" name="languagetechnology">
+                        <small class="text-muted">Separate by (,) Ex: PHP, MySQL, MongoDB</small>
+                        <div class="invalid-feedback">
+                        Please Enter Valid Language or Technology Support.
+                      </div>
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                   
                   </div>
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-last-name">Mailbox </label>
-                        <input type="text" id="input-last-name" class="form-control" placeholder="Last name" value="Jesse">
+                        <label class="form-control-label" for="mailbox">Mailbox<span class="important-field"> *</span> </label>
+                        <input type="number" id="mailbox" class="form-control" placeholder="Mailbox" name="mailbox">
+                        <small class="text-muted">Enter Number of mailbox will be provided, enter 0 if none</small>
+                        <div class="invalid-feedback">
+                          Please Enter Valid Number of Mailbox.
+                        </div>
                       </div>
                     </div>
                   </div>
                   <div class="text-center">
-                  <button type="button" class="btn btn-primary mt-4" id="createcategory">Create Category</button>
+                  <input type="submit" class="btn btn-primary mt-4" id="createcategory" value="Create Category" name="submit">
                 </div>
                 </div>
               </form>
@@ -447,6 +507,133 @@ $product=new tbl_product();
       </div>
       <div class="row">
       </div>
+      <script>
+        $( document ).ready(function() {
+          $("#createcategory").prop('disabled', true);
+        });
+        $('#inputState').focusout(function(){
+          var value=($(this).val()).trim();
+          if (value=="Please select") {
+            $("select").addClass("is-invalid");
+            $("#createcategory").prop('disabled', true);
+          }
+          else {
+            $("select").removeClass("is-invalid");
+          }
+        });
+        $('#productname').focusout(function(){
+          var value=($(this).val()).trim();
+          if (value=="") {
+            $("#productname").addClass("is-invalid");
+            $("#createcategory").prop('disabled', true);
+          }
+          else {
+            $("#productname").removeClass("is-invalid");
+          }
+        });
+        $('#monthlyprice').focusout(function(){
+          var value=($(this).val()).trim();
+          if (value=="") {
+            $("#monthlyprice").addClass("is-invalid");
+            $("#createcategory").prop('disabled', true);
+          }
+          else {
+            $("#monthlyprice").removeClass("is-invalid");
+          }
+        });
+        $('#annualprice').focusout(function(){
+          var value=($(this).val()).trim();
+          if (value=="") {
+            $("#annualprice").addClass("is-invalid");
+            $("#createcategory").prop('disabled', true);
+          }
+          else {
+            $("#annualprice").removeClass("is-invalid");
+          }
+        });
+        $('#sku').focusout(function(){
+          var value=($(this).val()).trim();
+          if (value=="") {
+            $("#sku").addClass("is-invalid");
+            $("#createcategory").prop('disabled', true);
+          }
+          else {
+            $("#sku").removeClass("is-invalid");
+          }
+        });
+        $('#webspace').focusout(function(){
+          var value=($(this).val()).trim();
+          if (value=="") {
+            $("#webspace").addClass("is-invalid");
+            $("#createcategory").prop('disabled', true);
+          }
+          else {
+            $("#webspace").removeClass("is-invalid");
+          }
+        });
+        $('#bandwidth').focusout(function(){
+          var value=($(this).val()).trim();
+          if (value=="") {
+            $("#bandwidth").addClass("is-invalid");
+            $("#createcategory").prop('disabled', true);
+          }
+          else {
+            $("#bandwidth").removeClass("is-invalid");
+          }
+        });
+        $('#freedomain').focusout(function(){
+          var value=($(this).val()).trim();
+          if (value=="") {
+            $("#freedomain").addClass("is-invalid");
+            $("#createcategory").prop('disabled', true);
+          }
+          else {
+            $("#freedomain").removeClass("is-invalid");
+          }
+        });
+        $('#languagetechnology').focusout(function(){
+          var value=($(this).val()).trim();
+          if (value=="") {
+            $("#languagetechnology").addClass("is-invalid");
+            $("#createcategory").prop('disabled', true);
+          }
+          else {
+            $("#languagetechnology").removeClass("is-invalid");
+          }
+        });
+        $('#mailbox').focusout(function(){
+          var value=($(this).val()).trim();
+          if (value=="") {
+            $("#mailbox").addClass("is-invalid");
+            $("#createcategory").prop('disabled', true);
+          }
+          else {
+            $("#mailbox").removeClass("is-invalid");
+            $("#createcategory").prop('disabled', false);
+          }
+        });
+        function validateAddProduct(){
+          var productcategory=($('#inputState').val()).trim();
+          var productname=($('#productname').val()).trim();
+          var pageurl=($('#pageurl').val()).trim();
+          var monthlyprice=($('#monthlyprice').val()).trim();
+          var annualprice=($('#annualprice').val()).trim();
+          var sku=($('#sku').val()).trim();
+          var webspace=($('#webspace').val()).trim();
+          var bandwidth=($('#bandwidth').val()).trim();
+          var freedomain=($('#freedomain').val()).trim();
+          var languagetechnology=($('#languagetechnology').val()).trim();
+          var mailbox=($('#mailbox').val()).trim();
+          if (productcategory=="" || productname==""  ||monthlyprice=="" || annualprice=="" || sku=="" || webspace=="" || bandwidth=="" || freedomain=="" || languagetechnology=="" || mailbox=="") {
+            alert("please enter all required fields");
+            return false;
+          }
+          else if(!isNaN(productname)){
+            alert("Please Enter Valid product Name");
+            return false;
+          }
+        }
+      </script>
 <?php
 include "footer.php";
 ?>

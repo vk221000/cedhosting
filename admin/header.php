@@ -3,6 +3,7 @@ session_start();
 if (!isset($_SESSION['admin'])){
   header('Location:../login.php');
 }
+$actual_link = $_SERVER["PHP_SELF"];
 ?>
 <!DOCTYPE html>
 <html>
@@ -70,12 +71,16 @@ if (!isset($_SESSION['admin'])){
               </a>
             </li>
         </ul>
+        <ul class="dot-removal">
         <hr class="my-3">
           <!-- Heading -->
           <h6 class="navbar-heading p-0 text-muted">
             <span class="docs-normal">Products</span>
           </h6>
-          <ul class="navbar-nav">
+          <li  data-toggle="collapse" data-target="#products" class="collapsed active">
+            <a href="#">Products <span class="fas">&#xf103;</span></a>
+          </li>
+          <ul class="navbar-nav sub-menu collapse" id="products">
             <li class="nav-item">
               <a class="nav-link" href="createcategory.php">
                 <i class="ni ni-planet text-orange"></i>
@@ -89,7 +94,7 @@ if (!isset($_SESSION['admin'])){
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="examples/profile.html">
+              <a class="nav-link" href="viewproducts.php">
                 <i class="ni ni-single-02 text-yellow"></i>
                 <span class="nav-link-text">View Products</span>
               </a>
@@ -106,7 +111,10 @@ if (!isset($_SESSION['admin'])){
           <h6 class="navbar-heading p-0 text-muted">
             <span class="docs-normal">Orders</span>
           </h6>
-          <ul class="navbar-nav">
+          <li  data-toggle="collapse" data-target="#products1" class="collapsed active">
+            <a href="#">Orders  <span class="fas">&#xf103;</span></a>
+          </li>
+          <ul class="navbar-nav sub-menu collapse" id="products1">
             <li class="nav-item">
               <a class="nav-link" href="examples/icons.html">
                 <i class="ni ni-planet text-orange"></i>
@@ -137,7 +145,10 @@ if (!isset($_SESSION['admin'])){
           <h6 class="navbar-heading p-0 text-muted">
             <span class="docs-normal">Services</span>
           </h6>
-          <ul class="navbar-nav">
+          <li  data-toggle="collapse" data-target="#products2" class="collapsed active">
+            <a href="#">Services  <span class="fas">&#xf103;</span></a>
+          </li>
+          <ul class="navbar-nav sub-menu collapse" id="products2">
             <li class="nav-item">
               <a class="nav-link" href="examples/icons.html">
                 <i class="ni ni-planet text-orange"></i>
@@ -156,7 +167,10 @@ if (!isset($_SESSION['admin'])){
           <h6 class="navbar-heading p-0 text-muted">
             <span class="docs-normal">Users</span>
           </h6>
-          <ul class="navbar-nav">
+          <li  data-toggle="collapse" data-target="#products3" class="collapsed active">
+            <a href="#">Users  <span class="fas">&#xf103;</span></a>
+          </li>
+          <ul class="navbar-nav sub-menu collapse" id="products3">
             <li class="nav-item">
               <a class="nav-link" href="examples/icons.html">
                 <i class="ni ni-planet text-orange"></i>
@@ -175,7 +189,10 @@ if (!isset($_SESSION['admin'])){
           <h6 class="navbar-heading p-0 text-muted">
             <span class="docs-normal">Blog</span>
           </h6>
-          <ul class="navbar-nav">
+          <li  data-toggle="collapse" data-target="#products4" class="collapsed active">
+            <a href="#">Blogs  <span class="fas">&#xf103;</span></a>
+          </li>
+          <ul class="navbar-nav sub-menu collapse" id="products4">
             <li class="nav-item">
               <a class="nav-link" href="examples/icons.html">
                 <i class="ni ni-planet text-orange"></i>
@@ -194,7 +211,10 @@ if (!isset($_SESSION['admin'])){
           <h6 class="navbar-heading p-0 text-muted">
             <span class="docs-normal">Accounts</span>
           </h6>
-          <ul class="navbar-nav">
+          <li  data-toggle="collapse" data-target="#products5" class="collapsed active">
+            <a href="#">Info  <span class="fas">&#xf103;</span></a>
+          </li>
+          <ul class="navbar-nav sub-menu collapse" id="products5">
             <li class="nav-item">
               <a class="nav-link" href="examples/icons.html">
                 <i class="ni ni-planet text-orange"></i>
@@ -213,6 +233,7 @@ if (!isset($_SESSION['admin'])){
                 <span class="nav-link-text">Change Password</span>
               </a>
             </li>
+        </ul>
         </ul>
         </div>
       </div>

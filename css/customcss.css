@@ -18,3 +18,13 @@
     color: #585CA7;
     font-size: 11px;
 }
+.important-field{
+    color: red;
+}
+.dot-removal li{
+    list-style-type: none;
+}
+.dot-removal{
+    margin-left: 0px;
+    padding-left: 5px;
+}

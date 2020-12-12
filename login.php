@@ -1,5 +1,8 @@
 <?php
 include "headercommon.php";
+if (isset($_SESSION['admin'])){
+	header('location:admin/');
+}
 include "tbl_user.php";
 $error="";
 $user=new tbl_user();
@@ -14,6 +17,7 @@ if (isset($_POST['submit'])) {
 		$error="Email or Password dosen't match";
 	} else {
 		$error="please verify your mobile and/or email to get access";
+		header('Location:verificationpage.php');
 	}
 }
 ?>

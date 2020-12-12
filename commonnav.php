@@ -16,7 +16,7 @@ $product=new tbl_product();
 						<i class="icon-bar"></i>
 					</button>				  
 					<div class="navbar-brand">
-						<h1><a href="index.php"><span class="logo-color-left">Ced</span><span class="logo-color-right">Hosting</span></a></h1>
+						<h1><a href="index.php"><img src="images/logo.png"  alt="" width="100" height="90"></a></h1>
 					</div>
 				</div>
 
