@@ -18,8 +18,16 @@ class tbl_product{
         }
         return false;
     }
+    /**
+     * Product Description Addition
+     *                 
+     * @param productname $productname        
+     * @param link        $link                  
+     * 
+     * @return productUpdate()
+     */
     public function insertProductBYCategory($productname,$link) {
-        $sql="INSERT INTO `tbl_product` (`prod_parent_id`,`prod_name`,`link`,`prod_available`,`prod_launch_date`) 
+        $sql="INSERT INTO `tbl_product` (`prod_parent_id`,`prod_name`,`html`,`prod_available`,`prod_launch_date`) 
         VALUES ('1','$productname','$link','1',NOW())";
         $data=$this->conn->query($sql);
         if($data){
@@ -27,18 +35,33 @@ class tbl_product{
         }
         return false;
     }
+    /**
+     * Update Product Category
+     *                
+     * @param productname  $productname 
+     * @param link         $link        
+     * @param availability $availability           
+     * @param id           $id                
+     * 
+     * @return productUpdate()
+     */
     public function updateProductByCategory($productname, $link, $availability, $id) {
-        $sql="UPDATE `tbl_product` SET `prod_name`='$productname', `link`='$link',`prod_available`='$availability' WHERE `id` = '$id'";
+        $sql="UPDATE `tbl_product` SET `prod_name`='$productname', `html`='$link',`prod_available`='$availability' WHERE `id` = '$id'";
         $data=$this->conn->query($sql);
-        if($data){
+        if ($data) {
             return true;
         }
         return false;
     }
+    /**
+     * Show Product         
+     * 
+     * @return productUpdate()
+     */
     public function showProductBYCategory(){
         $sql="SELECT * FROM `tbl_product` WHERE `id`!='1'";
         $data=$this->conn->query($sql);
-        if ($data->num_rows>0){
+        if ($data->num_rows>0) {
             $arr['data']=array();
             while($row=$data->fetch_assoc()){
                 if ($row['prod_available']=='1') {
@@ -47,12 +70,17 @@ class tbl_product{
                 else {
                     $available="unavailable";
                 }
-                $arr['data'][]=array($row['id'],$row['prod_parent_id'],$row['prod_name'],$row['link'],$available,$row['prod_launch_date'],"<a href='javascript:void(0)' class='btn btn-outline-info' data-id='".$row['id']."' id='edit-product-by-category' data-toggle='modal' data-target='#exampleModalSignUp'>Edit</a> <a href='javascript:void(0)' class='btn btn-outline-danger' data-id='".$row['id']."' id='delete-product-by-category'>Delete</a>");
+                $arr['data'][]=array($row['id'],$row['prod_parent_id'],$row['prod_name'],$row['html'],$available,$row['prod_launch_date'],"<a href='javascript:void(0)' class='btn btn-outline-info' data-id='".$row['id']."' id='edit-product-by-category' data-toggle='modal' data-target='#exampleModalSignUp'>Edit</a> <a href='javascript:void(0)' class='btn btn-outline-danger' data-id='".$row['id']."' id='delete-product-by-category'>Delete</a>");
             }
             return $arr;
         }
         return false;
     }
+    /**
+     * Show Product         
+     * 
+     * @return productUpdate()
+     */
     public function showProductsBYCategory(){
         $sql="SELECT `tbl_product`.*,`tbl_product_description`.* FROM tbl_product JOIN tbl_product_description ON `tbl_product`.`id` = `tbl_product_description`.`prod_id`";
         $data=$this->conn->query($sql);
@@ -71,12 +99,20 @@ class tbl_product{
                 $freedomain=$decoded_description->{'freedomain'};
                 $languagetechnology=$decoded_description->{'languagetechnology'};
                 $mailbox=$decoded_description->{'mailbox'};
-                $arr['data'][]=array($row['prod_id'],$row['prod_parent_id'],$row['prod_name'],$row['link'],$available,$row['prod_launch_date'],$webspace,$bandwidth,$freedomain,$languagetechnology,$mailbox,"<a href='javascript:void(0)' class='btn btn-outline-info' data-id='".$row['prod_id']."' id='edit-product-by-category' data-toggle='modal' data-target='#exampleModalSignUp'>Edit</a> <a href='javascript:void(0)' class='btn btn-outline-danger' data-id='".$row['prod_id']."' id='delete-product-by-category'>Delete</a>");
+                $arr['data'][]=array($row['prod_id'],$row['prod_parent_id'],$row['prod_name'],$row['html'],$available,$row['prod_launch_date'],$row['mon_price'],$row['annual_price'],$row['sku'],$webspace,$bandwidth,$freedomain,$languagetechnology,$mailbox,"<a href='javascript:void(0)' class='btn btn-outline-info' data-id='".$row['prod_id']."' id='edit-product-by-category' data-toggle='modal' data-target='#exampleModalSignUp'>Edit</a> <a href='javascript:void(0)' class='btn btn-outline-danger' data-id='".$row['prod_id']."' id='delete-product-by-category'>Delete</a>");
             }
             return $arr;
         }
         return false;
     }
+    /**
+     * Manage Product 
+     * 
+     * @param id     $id                 
+     * @param action $action              
+     * 
+     * @return productUpdate()
+     */
     public function manageProductBYCategory($id, $action) {
         if ($action=='edit') {
             $sql="SELECT * FROM `tbl_product` WHERE `id`='$id'";
@@ -94,17 +130,24 @@ class tbl_product{
             return true;
         }
     }
+    /**
+     * Manage Product By Category
+     * 
+     * @param id     $id                   
+     * @param action $action                  
+     * 
+     * @return productUpdate()
+     */
     public function manageProductsBYCategory($id, $action) {
         if ($action=='edit') {
             $sql="SELECT `tbl_product`.*,`tbl_product_description`.* FROM tbl_product JOIN tbl_product_description ON `tbl_product`.`id` = `tbl_product_description`.`prod_id` WHERE `tbl_product`.`id`='$id'";
             $data=$this->conn->query($sql);            
-            if ($data->num_rows>0){
+            if ($data->num_rows>0) {
                 $arr=array();
-                while($row=$data->fetch_assoc()){
+                while ($row=$data->fetch_assoc()) {
                     if ($row['prod_available']=='1') {
                         $available="available";
-                    }
-                    else {
+                    } else {
                         $available="unavailable";
                     }
                     $decoded_description=json_decode($row['description']);
@@ -113,7 +156,21 @@ class tbl_product{
                     $freedomain=$decoded_description->{'freedomain'};
                     $languagetechnology=$decoded_description->{'languagetechnology'};
                     $mailbox=$decoded_description->{'mailbox'};
-                    $arr=array("prod_id"=>$row['prod_id'],"sku"=>$row['sku'],"mon_price"=>$row['mon_price'],"annual_price"=>$row['annual_price'],"prod_parent_id"=>$row['prod_parent_id'],"prod_name"=>$row['prod_name'],"link"=>$row['link'],"available"=>$available,"prod_launch_date"=>$row['prod_launch_date'],"webspace"=>$webspace,"bandwidth"=>$bandwidth,"freedomain"=>$freedomain,"languagetechnology"=>$languagetechnology,"mailbox"=>$mailbox);
+                    $arr=array(
+                        "prod_id"=>$row['prod_id'],
+                        "sku"=>$row['sku'],
+                        "mon_price"=>$row['mon_price'],
+                        "annual_price"=>$row['annual_price'],
+                        "prod_parent_id"=>$row['prod_parent_id'],
+                        "prod_name"=>$row['prod_name'],
+                        "link"=>$row['html'],
+                        "available"=>$available,
+                        "prod_launch_date"=>$row['prod_launch_date'],
+                        "webspace"=>$webspace,
+                        "bandwidth"=>$bandwidth,
+                        "freedomain"=>$freedomain,
+                        "languagetechnology"=>$languagetechnology,
+                        "mailbox"=>$mailbox);
                 }
                 return $arr;
             }
@@ -121,9 +178,9 @@ class tbl_product{
         }
         if ($action=="delete") {
             $sql="DELETE FROM `tbl_product_description` WHERE `prod_id`='$id'";
-            if ($this->conn->query($sql)){
+            if ($this->conn->query($sql)) {
                 $sql="DELETE FROM `tbl_product` WHERE `id`='$id'";
-                if ($this->conn->query($sql)){
+                if ($this->conn->query($sql)) {
                     return true;
                 }
                 return false;
@@ -131,23 +188,44 @@ class tbl_product{
             return false;
         }
     }
-    
-    public function getSubCategoryNav(){
+    /**
+     * Show Product         
+     * 
+     * @return productUpdate()
+     */
+    public function getSubCategoryNav() {
         $sql="SELECT * FROM `tbl_product` WHERE `prod_parent_id`='1'";
         $data=$this->conn->query($sql);
-        if ($data->num_rows>0){
+        if ($data->num_rows>0) {
             $arr=array();
-            while($row=$data->fetch_assoc()){
-               $arr[]=$row;
+            while ($row=$data->fetch_assoc()) {
+                $arr[]=$row;
             }
             return $arr;
         }
         return false;
     }
+    /**
+     * Product Description Addition
+     *               
+     * @param productcategory    $productcategory    
+     * @param productname        $productname        
+     * @param pageurl            $pageurl          
+     * @param monthlyprice       $monthlyprice       
+     * @param annualprice        $annualprice        
+     * @param sku                $sku                
+     * @param webspace           $webspace           
+     * @param bandwidth          $bandwidth          
+     * @param freedomain         $freedomain         
+     * @param languagetechnology $languagetechnology 
+     * @param mailbox            $mailbox            
+     * 
+     * @return productUpdate()
+     */
     public function productDescriptionAddition($productcategory, $productname, $pageurl, $monthlyprice, $annualprice, $sku, $webspace, $bandwidth,  $freedomain, $languagetechnology, $mailbox){
-        $sql="INSERT INTO `tbl_product` (`prod_parent_id`,`prod_name`,`link`,`prod_available`,`prod_launch_date`) 
+        $sql="INSERT INTO `tbl_product` (`prod_parent_id`,`prod_name`,`html`,`prod_available`,`prod_launch_date`) 
         VALUES ('$productcategory','$productname','$pageurl','1',NOW())";
-        if ($this->conn->query($sql)===true){
+        if ($this->conn->query($sql)===true) {
             $last_id = $this->conn->insert_id;
             $description=array(
                 "webspace"=>$webspace,
@@ -159,7 +237,45 @@ class tbl_product{
             $description=json_encode($description);
             $sql="INSERT INTO `tbl_product_description`(`prod_id`, `description`, `mon_price`, `annual_price`, `sku`) 
             VALUES ('$last_id','$description','$monthlyprice','$annualprice','$sku')";
-            if ($this->conn->query($sql)===true){
+            if ($this->conn->query($sql)===true) {
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+    /**
+     * Updating Product
+     * 
+     * @param id                 $id                 
+     * @param productcategory    $productcategory    
+     * @param productname        $productname        
+     * @param pageurl            $pageurl          
+     * @param monthlyprice       $monthlyprice       
+     * @param annualprice        $annualprice        
+     * @param sku                $sku                
+     * @param webspace           $webspace           
+     * @param bandwidth          $bandwidth          
+     * @param freedomain         $freedomain         
+     * @param languagetechnology $languagetechnology 
+     * @param mailbox            $mailbox            
+     * 
+     * @return productUpdate()
+     */
+    public function productUpdate($id,$productcategory, $productname, $pageurl, $monthlyprice, $annualprice, $sku, $webspace, $bandwidth,  $freedomain, $languagetechnology, $mailbox){
+        $sql="UPDATE `tbl_product` SET `prod_parent_id`='$productcategory',`prod_name`='$productname',`html`='$pageurl',`prod_available`='1',`prod_launch_date`=NOW() WHERE `id`='$id'";
+        if ($this->conn->query($sql)===true) {
+            $last_id = $this->conn->insert_id;
+            $description=array(
+                "webspace"=>$webspace,
+                "bandwidth"=>$bandwidth,
+                "freedomain"=>$freedomain,
+                "languagetechnology"=>$languagetechnology,
+                "mailbox"=>$mailbox
+            );
+            $description=json_encode($description);
+            $sql="UPDATE `tbl_product_description` SET `description`='$description',`mon_price`='$monthlyprice',`annual_price`='$annualprice',`sku`='$sku' WHERE `prod_id`='$productcategory'";
+            if ($this->conn->query($sql)===true) {
                 return true;
             }
             return false;

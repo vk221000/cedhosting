@@ -190,43 +190,52 @@ $product=new tbl_product();
               </div>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link" href="#" 
+              role="button" data-toggle="dropdown" 
+              aria-haspopup="true" aria-expanded="false">
                 <i class="ni ni-ungroup"></i>
               </a>
-              <div class="dropdown-menu dropdown-menu-lg dropdown-menu-dark bg-default  dropdown-menu-right ">
+              <div class="dropdown-menu dropdown-menu-lg 
+              dropdown-menu-dark bg-default  dropdown-menu-right ">
                 <div class="row shortcuts px-4">
                   <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-red">
+                    <span class="shortcut-media avatar 
+                    rounded-circle bg-gradient-red">
                       <i class="ni ni-calendar-grid-58"></i>
                     </span>
                     <small>Calendar</small>
                   </a>
                   <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-orange">
+                    <span class="shortcut-media avatar 
+                    rounded-circle bg-gradient-orange">
                       <i class="ni ni-email-83"></i>
                     </span>
                     <small>Email</small>
                   </a>
                   <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-info">
+                    <span class="shortcut-media avatar 
+                    rounded-circle bg-gradient-info">
                       <i class="ni ni-credit-card"></i>
                     </span>
                     <small>Payments</small>
                   </a>
                   <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-green">
+                    <span class="shortcut-media avatar 
+                    rounded-circle bg-gradient-green">
                       <i class="ni ni-books"></i>
                     </span>
                     <small>Reports</small>
                   </a>
                   <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-purple">
+                    <span class="shortcut-media 
+                    avatar rounded-circle bg-gradient-purple">
                       <i class="ni ni-pin-3"></i>
                     </span>
                     <small>Maps</small>
                   </a>
                   <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-yellow">
+                    <span class="shortcut-media 
+                    avatar rounded-circle bg-gradient-yellow">
                       <i class="ni ni-basket"></i>
                     </span>
                     <small>Shop</small>
@@ -237,10 +246,13 @@ $product=new tbl_product();
           </ul>
           <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
             <li class="nav-item dropdown">
-              <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link pr-0" href="#" 
+              role="button" data-toggle="dropdown" 
+              aria-haspopup="true" aria-expanded="false">
                 <div class="media align-items-center">
                   <span class="avatar avatar-sm rounded-circle">
-                    <img alt="Image placeholder" src="assets/img/theme/user-avatar.png">
+                    <img alt="Image placeholder" 
+                    src="assets/img/theme/user-avatar.png">
                   </span>
                   <div class="media-body  ml-2  d-none d-lg-block">
                     <span class="mb-0 text-sm  font-weight-bold">Hello, <?php echo(isset($_SESSION['admin'])) ? $_SESSION['admin'][2]: "Admin" ?></span>
@@ -288,9 +300,11 @@ $product=new tbl_product();
               <h6 class="h2 text-white d-inline-block mb-0">AddProduct</h6>
               <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                 <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                  <li class="breadcrumb-item"><a href="index.php"><i class="fas fa-home"></i></a></li>
+                  <li class="breadcrumb-item">
+                  <a href="index.php"><i class="fas fa-home"></i></a></li>
                   <li class="breadcrumb-item"><a href="index.php">Dashboards</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">AddProduct</li>
+                  <li class="breadcrumb-item active" 
+                  aria-current="page">AddProduct</li>
                 </ol>
               </nav>
             </div>
@@ -337,21 +351,25 @@ $product=new tbl_product();
               
             </div>
             <div class="card-body">
-              <form action="addproduct.php" method="post" onsubmit="return(validateAddProduct());">
+              <form action="addproduct.php" method="post" 
+              onsubmit="return(validateAddProduct());">
               <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-8">
                             <h1 class="mb-0">Create New Product</h1>
                             <div class="mb-0">Enter Product Details </div>
-                            <small class="important-field"> * Mandatory Fields</small>
+                            <small class="important-field"> 
+                            * Mandatory Fields</small>
                             </div>
                         </div>
                     </div>
                 <div class="pl-lg-4">
                   <div class="row">
                   <div class="form-group col-lg-6">
-                    <label for="inputState">Select Product Category<span class="important-field"> *</span></label>
-                    <select id="inputState" class="form-control" name="productcategory">
+                    <label for="inputState">Select Product Category
+                    <span class="important-field"> *</span></label>
+                    <select id="inputState" class="form-control" 
+                    name="productcategory">
                         <option value="Please select">Please select</option>
                         <?php
                         $data=$product->getSubCategoryNav();
@@ -369,8 +387,12 @@ $product=new tbl_product();
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="productname">Enter Product Name<span class="important-field"> *</span></label>
-                        <input type="text" id="productname" class="form-control" placeholder="product Name" name="productname">
+                        <label class="form-control-label" 
+                        for="productname">Enter Product Name
+                        <span class="important-field"> *</span></label>
+                        <input type="text" id="productname" 
+                        class="form-control" placeholder="product Name" 
+                        name="productname">
                           <div class="invalid-feedback">
                             Please provide a valid Product Name.
                           </div>
@@ -378,8 +400,10 @@ $product=new tbl_product();
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="pageurl">Page URL</label>
-                        <input type="text" id="pageurl" class="form-control" placeholder="Page URL" name="pageurl">
+                        <label class="form-control-label" 
+                        for="pageurl">Page URL</label>
+                        <input type="text" id="pageurl" 
+                        class="form-control" placeholder="Page URL" name="pageurl">
                       </div>
                     </div>
                   </div>
@@ -395,8 +419,12 @@ $product=new tbl_product();
                     <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="monthlyprice">Enter Monthly Price<span class="important-field"> *</span></label>
-                        <input type="number" id="monthlyprice" class="form-control" placeholder="Monthly Price" name="monthlyprice">
+                        <label class="form-control-label" 
+                        for="monthlyprice">Enter Monthly Price
+                        <span class="important-field"> *</span></label>
+                        <input type="text" id="monthlyprice" 
+                        class="form-control" placeholder="Monthly Price" 
+                        name="monthlyprice">
                         <small class="text-muted">This would be Monthly Plan</small>
                         <div class="invalid-feedback">
                           Please Enter valid Monthly price.
@@ -405,8 +433,12 @@ $product=new tbl_product();
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="annualprice">Enter Annual Price<span class="important-field"> *</span> </label>
-                        <input type="number" id="annualprice" class="form-control" placeholder="Annual Price" name="annualprice">
+                        <label class="form-control-label" 
+                        for="annualprice">Enter Annual Price
+                        <span class="important-field"> *</span> </label>
+                        <input type="text" id="annualprice" 
+                        class="form-control" placeholder="Annual Price" 
+                        name="annualprice">
                         <small class="text-muted">This would be Annual Price</small>
                         <div class="invalid-feedback">
                           Please Enter Valid Annual Price.
@@ -420,8 +452,10 @@ $product=new tbl_product();
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="sku">SKU<span class="important-field"> *</span></label>
-                        <input type="text" id="sku" class="form-control" placeholder="SKU" name="sku">
+                        <label class="form-control-label" 
+                        for="sku">SKU<span class="important-field"> *</span></label>
+                        <input type="text" id="sku" class="form-control" 
+                        placeholder="SKU" name="sku">
                         <div class="invalid-feedback">
                           Please Enter valid SKU.
                         </div>
@@ -440,8 +474,11 @@ $product=new tbl_product();
                     <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="webspace">Web Space(in GB)<span class="important-field"> *</span></label>
-                        <input type="number" id="webspace" class="form-control" placeholder="Web Space" name="webspace">
+                        <label class="form-control-label" 
+                        for="webspace">Web Space(in GB)
+                        <span class="important-field"> *</span></label>
+                        <input type="text" id="webspace" 
+                        class="form-control" placeholder="Web Space" name="webspace">
                         <small class="text-muted">Enter 0.5 for 512 MB</small>
                         <div class="invalid-feedback">
                           Please Enter Valid Web Space.
@@ -450,8 +487,12 @@ $product=new tbl_product();
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="bandwidth">Bandwidth (in GB)<span class="important-field"> *</span></label>
-                        <input type="number" id="bandwidth" class="form-control" placeholder="Bandwidth" name="bandwidth">
+                        <label class="form-control-label" 
+                        for="bandwidth">Bandwidth (in GB)
+                        <span class="important-field"> *</span></label>
+                        <input type="text" id="bandwidth" 
+                        class="form-control" placeholder="Bandwidth" 
+                        name="bandwidth">
                         <small class="text-muted">Enter 0.5 for 512 MB</small>
                         <div class="invalid-feedback">
                           Please Enter bandwidth.
@@ -463,9 +504,14 @@ $product=new tbl_product();
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="freedomain">Free Domain<span class="important-field"> *</span> </label>
-                        <input type="number" id="freedomain" class="form-control" placeholder="Free Domain" name="freedomain">
-                        <small class="text-muted">Enter 0 if no domain available in this service</small>
+                        <label class="form-control-label" 
+                        for="freedomain">Free Domain<span 
+                        class="important-field"> *</span> </label>
+                        <input type="text" id="freedomain"
+                         class="form-control" placeholder="Free Domain" 
+                         name="freedomain">
+                        <small class="text-muted">Enter 0 if 
+                        no domain available in this service</small>
                         <div class="invalid-feedback">
                           Please Enter Valid Free Domain.
                         </div>
@@ -473,9 +519,14 @@ $product=new tbl_product();
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="languagetechnology">Language/ Technology Support<span class="important-field"> *</span> </label>
-                        <input type="text" id="languagetechnology" class="form-control" placeholder="Language or Technology Support" name="languagetechnology">
-                        <small class="text-muted">Separate by (,) Ex: PHP, MySQL, MongoDB</small>
+                        <label class="form-control-label" 
+                        for="languagetechnology">Language/ Technology Support
+                        <span class="important-field"> *</span> </label>
+                        <input type="text" id="languagetechnology" 
+                        class="form-control" placeholder="Language or 
+                        Technology Support" name="languagetechnology">
+                        <small class="text-muted">Separate by (,) 
+                        Ex: PHP, MySQL, MongoDB</small>
                         <div class="invalid-feedback">
                         Please Enter Valid Language or Technology Support.
                       </div>
@@ -487,9 +538,12 @@ $product=new tbl_product();
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="mailbox">Mailbox<span class="important-field"> *</span> </label>
-                        <input type="number" id="mailbox" class="form-control" placeholder="Mailbox" name="mailbox">
-                        <small class="text-muted">Enter Number of mailbox will be provided, enter 0 if none</small>
+                        <label class="form-control-label" for="mailbox">Mailbox
+                        <span class="important-field"> *</span> </label>
+                        <input type="text" id="mailbox" class="form-control" 
+                        placeholder="Mailbox" name="mailbox">
+                        <small class="text-muted">Enter Number 
+                        of mailbox will be provided, enter 0 if none</small>
                         <div class="invalid-feedback">
                           Please Enter Valid Number of Mailbox.
                         </div>
@@ -497,7 +551,8 @@ $product=new tbl_product();
                     </div>
                   </div>
                   <div class="text-center">
-                  <input type="submit" class="btn btn-primary mt-4" id="createcategory" value="Create Category" name="submit">
+                  <input type="submit" class="btn btn-primary mt-4" 
+                  id="createcategory" value="Create Category" name="submit">
                 </div>
                 </div>
               </form>
@@ -510,108 +565,247 @@ $product=new tbl_product();
       <script>
         $( document ).ready(function() {
           $("#createcategory").prop('disabled', true);
+          var inputstatecount=0;
+          var productnamecount=0;
+          var monthlypricecount=0;
+          var annualpricecount=0;
+          var skucount=0;
+          var webspacecount=0;
+          var bandwidthcount=0;
+          var freedomaincount=0;
+          var languagetechnologycount=0;
+          var mailboxcount=0;
         });
         $('#inputState').focusout(function(){
-          var value=($(this).val()).trim();
+          inputState();
+        });
+        function inputState(){
+          var value=($('#inputState').val()).trim();
           if (value=="Please select") {
             $("select").addClass("is-invalid");
             $("#createcategory").prop('disabled', true);
+            inputstatecount=0;
+            return false;
           }
           else {
             $("select").removeClass("is-invalid");
+            inputstatecount=1;
+            if (inputstatecount+productnamecount+monthlypricecount+
+            annualpricecount+skucount+webspacecount+bandwidthcount+
+            freedomaincount+languagetechnologycount+mailboxcount>=10) {
+              $("#createcategory").prop('disabled', false);
+            }
+            return true;
           }
-        });
+        }
         $('#productname').focusout(function(){
-          var value=($(this).val()).trim();
-          if (value=="") {
+         productName();
+        });
+        function productName(){
+          var regproductname=/(^([a-zA-Z]+\-[0-9]+$))|(^([a-zA-Z])+$)/;
+          var value=($('#productname').val()).trim();
+          if (value=="" || !(value.match(regproductname))) {
             $("#productname").addClass("is-invalid");
             $("#createcategory").prop('disabled', true);
-          }
-          else {
+            productnamecount=0;
+            return false;
+          } else {
             $("#productname").removeClass("is-invalid");
+            productnamecount=1;
+            if (inputstatecount+productnamecount+monthlypricecount+
+            annualpricecount+skucount+webspacecount+bandwidthcount+
+            freedomaincount+languagetechnologycount+mailboxcount>=10) {
+              $("#createcategory").prop('disabled', false);
+            }
+            return true;
           }
-        });
+        }
         $('#monthlyprice').focusout(function(){
-          var value=($(this).val()).trim();
-          if (value=="") {
+          monthlyPrice();
+        });
+        function monthlyPrice(){
+          var regprice=/^([0-9]+\.[0-9]+$)|(^([0-9])+$)/;
+          var value=($('#monthlyprice').val()).trim();
+          if (value=="" || !(value.match(regprice))) {
             $("#monthlyprice").addClass("is-invalid");
             $("#createcategory").prop('disabled', true);
+            monthlypricecount=0;
+            return false;
           }
           else {
             $("#monthlyprice").removeClass("is-invalid");
+            monthlypricecount=1;
+            if (inputstatecount+productnamecount+monthlypricecount+
+            annualpricecount+skucount+webspacecount+bandwidthcount+
+            freedomaincount+languagetechnologycount+mailboxcount>=10) {
+              $("#createcategory").prop('disabled', false);
+            }
+            return true;
           }
-        });
+        }
         $('#annualprice').focusout(function(){
-          var value=($(this).val()).trim();
-          if (value=="") {
+          annualPrice();
+        });
+        function annualPrice(){
+          var regprice=/^([0-9]+\.[0-9]+$)|(^([0-9])+$)/;
+          var value=($('#annualprice').val()).trim();
+          if (value=="" || !(value.match(regprice))) {
             $("#annualprice").addClass("is-invalid");
             $("#createcategory").prop('disabled', true);
+            annualpricecount=0;
+            return false;
           }
           else {
             $("#annualprice").removeClass("is-invalid");
+            annualpricecount=1;
+            if (inputstatecount+productnamecount+monthlypricecount+
+            annualpricecount+skucount+webspacecount+bandwidthcount+
+            freedomaincount+languagetechnologycount+mailboxcount>=10) {
+              $("#createcategory").prop('disabled', false);
+            }
+            return true;
           }
-        });
+        }
         $('#sku').focusout(function(){
-          var value=($(this).val()).trim();
-          if (value=="") {
+          sku();
+        });
+        function sku(){
+          var regsku=/^(([a-zA-Z0-9-#?]+)([a-zA-Z0-9]+))|(([a-zA-Z0-9-#?]+)([a-zA-Z0-9]+)([-#?]))+$/;
+          var value=($('#sku').val()).trim();
+          if (value=="" || !(value.match(regsku))) {
             $("#sku").addClass("is-invalid");
             $("#createcategory").prop('disabled', true);
+            skucount=0;
+            return false;
           }
           else {
             $("#sku").removeClass("is-invalid");
+            skucount=1;
+            if (inputstatecount+productnamecount+monthlypricecount+
+            annualpricecount+skucount+webspacecount+bandwidthcount+
+            freedomaincount+languagetechnologycount+mailboxcount>=10) {
+              $("#createcategory").prop('disabled', false);
+            }
+            return true;
           }
-        });
+        }
         $('#webspace').focusout(function(){
-          var value=($(this).val()).trim();
-          if (value=="") {
+          webSpace();
+        });
+        function webSpace(){
+          var regwebspace=/^([0-9]+\.[0-9]+$)|(^([0-9])+$)/;
+          var value=($('#webspace').val()).trim();
+          if (value=="" || !(value.match(regwebspace))) {
             $("#webspace").addClass("is-invalid");
             $("#createcategory").prop('disabled', true);
+            webspacecount=0;
+            return false;
           }
           else {
             $("#webspace").removeClass("is-invalid");
+            webspacecount=1;
+            if (inputstatecount+productnamecount+monthlypricecount+
+            annualpricecount+skucount+webspacecount+bandwidthcount+
+            freedomaincount+languagetechnologycount+mailboxcount>=10) {
+              $("#createcategory").prop('disabled', false);
+            }
+            return true;
           }
-        });
+        }
         $('#bandwidth').focusout(function(){
-          var value=($(this).val()).trim();
-          if (value=="") {
+          bandWidth();
+        });
+        function bandWidth(){
+          var regbandwidth=/^([0-9]+\.[0-9]+$)|(^([0-9])+$)/;
+          var value=($('#bandwidth').val()).trim();
+          if (value=="" || !(value.match(regbandwidth))) {
             $("#bandwidth").addClass("is-invalid");
             $("#createcategory").prop('disabled', true);
+            bandwidthcount=0;
+            return false;
           }
           else {
             $("#bandwidth").removeClass("is-invalid");
+            bandwidthcount=1;
+            if (inputstatecount+productnamecount+monthlypricecount+
+            annualpricecount+skucount+webspacecount+bandwidthcount+
+            freedomaincount+languagetechnologycount+mailboxcount>=10) {
+              $("#createcategory").prop('disabled', false);
+            }
+            return true;
           }
-        });
+        }
         $('#freedomain').focusout(function(){
-          var value=($(this).val()).trim();
-          if (value=="") {
+          freeDomain();
+        });
+        function freeDomain(){
+          var regfreedomain=/^([a-zA-Z]+$)|(^([0-9])+$)/;
+          var value=($('#freedomain').val()).trim();
+          if (value=="" || !(value.match(regfreedomain))) {
             $("#freedomain").addClass("is-invalid");
             $("#createcategory").prop('disabled', true);
+            freedomaincount=0;
+            return false;
           }
           else {
             $("#freedomain").removeClass("is-invalid");
+            freedomaincount=1;
+            if (inputstatecount+productnamecount+monthlypricecount+
+            annualpricecount+skucount+webspacecount+bandwidthcount+
+            freedomaincount+languagetechnologycount+mailboxcount>=10) {
+              $("#createcategory").prop('disabled', false);
+            }
+            return true;
           }
-        });
+        }
+
         $('#languagetechnology').focusout(function(){
-          var value=($(this).val()).trim();
-          if (value=="") {
+          languageTechnology();
+        });
+        function languageTechnology(){
+          var reglanguagetech=/(^([a-zA-Z]+[0-9]+\,[a-zA-Z]+[0-9]+$))|(^([a-zA-Z]+[0-9]+\,[a-zA-Z]+$))|(^([a-zA-Z]+\,[a-zA-Z]+[0-9]+$))|(^([a-zA-Z]+\,[a-zA-Z]+$))|(^([a-zA-Z])+$)/;
+          var value=($('#languagetechnology').val()).trim();
+          if (value=="" || !(value.match(reglanguagetech))) {
             $("#languagetechnology").addClass("is-invalid");
             $("#createcategory").prop('disabled', true);
+            languagetechnologycount=0;
+            return false;
           }
           else {
             $("#languagetechnology").removeClass("is-invalid");
+            languagetechnologycount=1;
+            if (inputstatecount+productnamecount+monthlypricecount+annualpricecount+
+            skucount+webspacecount+bandwidthcount+freedomaincount+
+            languagetechnologycount+mailboxcount>=10) 
+            {
+              $("#createcategory").prop('disabled', false);
+            }
+            return true;
           }
-        });
+        }
         $('#mailbox').focusout(function(){
-          var value=($(this).val()).trim();
-          if (value=="") {
+         mainBox();
+        });
+        function mainBox(){
+          var regmailbox=/^([0-9])+$/;
+          var value=($('#mailbox').val()).trim();
+          if (value=="" || !(value.match(regmailbox))) {
             $("#mailbox").addClass("is-invalid");
             $("#createcategory").prop('disabled', true);
+            mailboxcount=0;
+            return false;
           }
           else {
             $("#mailbox").removeClass("is-invalid");
-            $("#createcategory").prop('disabled', false);
+            mailboxcount=1;
+            if (inputstatecount+productnamecount+monthlypricecount+annualpricecount+
+            skucount+webspacecount+bandwidthcount+freedomaincount+
+            languagetechnologycount+mailboxcount>=10) {
+              $("#createcategory").prop('disabled', false);
+            }
+            return true;
           }
-        });
+        }
         function validateAddProduct(){
           var productcategory=($('#inputState').val()).trim();
           var productname=($('#productname').val()).trim();
@@ -624,16 +818,20 @@ $product=new tbl_product();
           var freedomain=($('#freedomain').val()).trim();
           var languagetechnology=($('#languagetechnology').val()).trim();
           var mailbox=($('#mailbox').val()).trim();
-          if (productcategory=="" || productname==""  ||monthlyprice=="" || annualprice=="" || sku=="" || webspace=="" || bandwidth=="" || freedomain=="" || languagetechnology=="" || mailbox=="") {
-            alert("please enter all required fields");
+          if ((inputState()==false) || (productName()==false)  || 
+          (monthlyPrice()==false) || (annualprice()==false) || 
+          (sku()==false) || (webSpace()==false) || (bandwidth()==false) || 
+          (freedomain()==false) || (languagetechnology()==false) || 
+          (mailbox()==false)) {
+            alert("Please Enter All Required Fields");
             return false;
           }
           else if(!isNaN(productname)){
-            alert("Please Enter Valid product Name");
+            alert("Please Enter Valid Product Name");
             return false;
           }
         }
       </script>
 <?php
-include "footer.php";
+require_once "footer.php";
 ?>

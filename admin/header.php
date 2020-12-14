@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['admin'])){
+if (!isset($_SESSION['admin'])) {
   header('Location:../login.php');
 }
 $actual_link = $_SERVER["PHP_SELF"];
@@ -39,19 +39,23 @@ $actual_link = $_SERVER["PHP_SELF"];
   <!-- Argon JS -->
   <script src="assets/js/argon.js?v=1.2.0"></script>
   <!-- jquery cdn -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+  </script>
   <!-- jquery cdn -->
   <!-- datatable cdn -->
-  <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js">
+  </script>
   <!-- datatable cdn -->
   <!-- datatable css -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" 
+  href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
   <!-- datatable css-->
 </head>
 
 <body>
   <!-- Sidenav -->
-  <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+  <nav class="sidenav navbar navbar-vertical  fixed-left  
+  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
     <div class="scrollbar-inner">
       <!-- Brand -->
       <div class="sidenav-header  align-items-center">
@@ -77,7 +81,8 @@ $actual_link = $_SERVER["PHP_SELF"];
           <h6 class="navbar-heading p-0 text-muted">
             <span class="docs-normal">Products</span>
           </h6>
-          <li  data-toggle="collapse" data-target="#products" class="collapsed active">
+          <li  data-toggle="collapse" 
+          data-target="#products" class="collapsed active">
             <a href="#">Products <span class="fas">&#xf103;</span></a>
           </li>
           <ul class="navbar-nav sub-menu collapse" id="products">
@@ -111,7 +116,8 @@ $actual_link = $_SERVER["PHP_SELF"];
           <h6 class="navbar-heading p-0 text-muted">
             <span class="docs-normal">Orders</span>
           </h6>
-          <li  data-toggle="collapse" data-target="#products1" class="collapsed active">
+          <li  data-toggle="collapse" 
+          data-target="#products1" class="collapsed active">
             <a href="#">Orders  <span class="fas">&#xf103;</span></a>
           </li>
           <ul class="navbar-nav sub-menu collapse" id="products1">
@@ -145,7 +151,8 @@ $actual_link = $_SERVER["PHP_SELF"];
           <h6 class="navbar-heading p-0 text-muted">
             <span class="docs-normal">Services</span>
           </h6>
-          <li  data-toggle="collapse" data-target="#products2" class="collapsed active">
+          <li  data-toggle="collapse" 
+          data-target="#products2" class="collapsed active">
             <a href="#">Services  <span class="fas">&#xf103;</span></a>
           </li>
           <ul class="navbar-nav sub-menu collapse" id="products2">
@@ -167,7 +174,8 @@ $actual_link = $_SERVER["PHP_SELF"];
           <h6 class="navbar-heading p-0 text-muted">
             <span class="docs-normal">Users</span>
           </h6>
-          <li  data-toggle="collapse" data-target="#products3" class="collapsed active">
+          <li  data-toggle="collapse" 
+          data-target="#products3" class="collapsed active">
             <a href="#">Users  <span class="fas">&#xf103;</span></a>
           </li>
           <ul class="navbar-nav sub-menu collapse" id="products3">
@@ -189,7 +197,8 @@ $actual_link = $_SERVER["PHP_SELF"];
           <h6 class="navbar-heading p-0 text-muted">
             <span class="docs-normal">Blog</span>
           </h6>
-          <li  data-toggle="collapse" data-target="#products4" class="collapsed active">
+          <li  data-toggle="collapse" 
+          data-target="#products4" class="collapsed active">
             <a href="#">Blogs  <span class="fas">&#xf103;</span></a>
           </li>
           <ul class="navbar-nav sub-menu collapse" id="products4">
@@ -211,7 +220,8 @@ $actual_link = $_SERVER["PHP_SELF"];
           <h6 class="navbar-heading p-0 text-muted">
             <span class="docs-normal">Accounts</span>
           </h6>
-          <li  data-toggle="collapse" data-target="#products5" class="collapsed active">
+          <li  data-toggle="collapse" 
+          data-target="#products5" class="collapsed active">
             <a href="#">Info  <span class="fas">&#xf103;</span></a>
           </li>
           <ul class="navbar-nav sub-menu collapse" id="products5">

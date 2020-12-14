@@ -440,7 +440,7 @@ include "header.php";
                     </select>
                   </div>
                   <div class="text-center">
-                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                   <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary my-4" id="updatecategory">Update Category</button>
                   </div>
                 </form>
@@ -549,7 +549,7 @@ include "header.php";
         data: {
           id: id,
           action: action,
-          manageproductsbycategory: true
+          manageproductbycategory: true
         },
         dataType:'json',
         success: function(msg){
@@ -563,10 +563,13 @@ include "header.php";
           else {
             var productname=msg['prod_name'];
             $('#productname-update').val(productname);
-            var link=msg['link'];
+            var link=msg['html'];
             $('#link-update').val(link);
             var categoryid=msg['id'];
             $('#category-id-update').val(categoryid);
+            var availability=msg['prod_available'];
+            $('#availability-update').val(availability).attr('selected','selected');
+
           }
         },
         error: function(){
