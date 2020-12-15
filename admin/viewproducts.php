@@ -340,8 +340,7 @@ $product=new tbl_product();
               <table class="table align-items-center table-flush" id="showProduct">
                 <thead class="thead-light">
                     <tr>
-                        <th>Product ID</th>
-                        <th>Product Parent ID</th>
+                        <th>Product Parent Name</th>
                         <th>Product Name</th>
                         <th>Link</th>
                         <th>Product Availability</th>
@@ -644,6 +643,9 @@ $product=new tbl_product();
       || freedomain=="" || languagetechnology=="" || mailbox=="") {
         alert("please enter product name");
       }
+      else if (validateAddProduct()==false) {
+        alert('please add monthly price less than annual price');
+      }
       else {
         $.ajax({
           url:'handlerequest.php',
@@ -749,7 +751,6 @@ $product=new tbl_product();
       if (value=="Please select") {
         $("select").addClass("is-invalid");
         $("#createcategory").prop('disabled', true);
-        inputstatecount=0;
         return false;
       }
       else {
@@ -767,7 +768,6 @@ $product=new tbl_product();
       if (value=="" || !(value.match(regproductname))) {
         $("#productname").addClass("is-invalid");
         $("#createcategory").prop('disabled', true);
-        productnamecount=0;
         return false;
       } else {
         $("#productname").removeClass("is-invalid");
@@ -781,10 +781,9 @@ $product=new tbl_product();
     function monthlyPrice(){
       var regprice=/^([0-9]+\.[0-9]+$)|(^([0-9])+$)/;
       var value=($('#monthlyprice').val()).trim();
-      if (value=="" || !(value.match(regprice))) {
+      if (value=="" || !(value.match(regprice)) || value.length>15) {
         $("#monthlyprice").addClass("is-invalid");
         $("#createcategory").prop('disabled', true);
-        monthlypricecount=0;
         return false;
       }
       else {
@@ -799,10 +798,9 @@ $product=new tbl_product();
     function annualPrice(){
       var regprice=/^([0-9]+\.[0-9]+$)|(^([0-9])+$)/;
       var value=($('#annualprice').val()).trim();
-      if (value=="" || !(value.match(regprice))) {
+      if (value=="" || !(value.match(regprice)) || value.length>15) {
         $("#annualprice").addClass("is-invalid");
         $("#createcategory").prop('disabled', true);
-        annualpricecount=0;
         return false;
       }
       else {
@@ -820,7 +818,6 @@ $product=new tbl_product();
       if (value=="" || !(value.match(regsku))) {
         $("#sku").addClass("is-invalid");
         $("#createcategory").prop('disabled', true);
-        skucount=0;
         return false;
       }
       else {
@@ -835,10 +832,9 @@ $product=new tbl_product();
     function webSpace(){
       var regwebspace=/^([0-9]+\.[0-9]+$)|(^([0-9])+$)/;
       var value=($('#webspace').val()).trim();
-      if (value=="" || !(value.match(regwebspace))) {
+      if (value=="" || !(value.match(regwebspace)) || value.length>5) {
         $("#webspace").addClass("is-invalid");
         $("#createcategory").prop('disabled', true);
-        webspacecount=0;
         return false;
       }
       else {
@@ -853,10 +849,9 @@ $product=new tbl_product();
     function bandWidth(){
       var regbandwidth=/^([0-9]+\.[0-9]+$)|(^([0-9])+$)/;
       var value=($('#bandwidth').val()).trim();
-      if (value=="" || !(value.match(regbandwidth))) {
+      if (value=="" || !(value.match(regbandwidth)) || value.length>5) {
         $("#bandwidth").addClass("is-invalid");
         $("#createcategory").prop('disabled', true);
-        bandwidthcount=0;
         return false;
       }
       else {
@@ -874,7 +869,6 @@ $product=new tbl_product();
       if (value=="" || !(value.match(regfreedomain))) {
         $("#freedomain").addClass("is-invalid");
         $("#createcategory").prop('disabled', true);
-        freedomaincount=0;
         return false;
       }
       else {
@@ -893,7 +887,6 @@ $product=new tbl_product();
       if (value=="" || !(value.match(reglanguagetech))) {
         $("#languagetechnology").addClass("is-invalid");
         $("#createcategory").prop('disabled', true);
-        languagetechnologycount=0;
         return false;
       }
       else {
@@ -911,7 +904,6 @@ $product=new tbl_product();
       if (value=="" || !(value.match(regmailbox))) {
         $("#mailbox").addClass("is-invalid");
         $("#createcategory").prop('disabled', true);
-        mailboxcount=0;
         return false;
       }
       else {
@@ -929,20 +921,12 @@ $product=new tbl_product();
       var sku=($('#sku').val()).trim();
       var webspace=($('#webspace').val()).trim();
       var bandwidth=($('#bandwidth').val()).trim();
-      var freedomain=($('#freedomain').val()).trim();
-      var languagetechnology=($('#languagetechnology').val()).trim();
-      var mailbox=($('#mailbox').val()).trim();
-      if ((inputState()==false) || (productName()==false)  || 
-      (monthlyPrice()==false) || (annualprice()==false) || 
-      (sku()==false) || (webSpace()==false) || (bandwidth()==false) || 
-      (freedomain()==false) || (languagetechnology()==false) || 
-      (mailbox()==false)) {
-        alert("Please Enter All Required Fields");
+      if(monthlyprice>annualprice){
+        alert("Please Enter monthly price less than annual price");
         return false;
       }
-      else if(!isNaN(productname)){
-        alert("Please Enter Valid Product Name");
-        return false;
+      else {
+        return true;
       }
     }
   </script>

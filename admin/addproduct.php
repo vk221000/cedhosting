@@ -16,24 +16,24 @@
 <?php
 include_once 'tbl_product.php';
 $product=new tbl_product();
-if (isset($_POST['submit'])){
-  $productcategory=$_POST['productcategory'];
-  $productname=$_POST['productname'];
-  $pageurl=$_POST['pageurl'];
-  $monthlyprice=$_POST['monthlyprice'];
-  $annualprice=$_POST['annualprice'];
-  $sku=$_POST['sku'];
-  $webspace=$_POST['webspace'];
-  $bandwidth=$_POST['bandwidth'];
-  $freedomain=$_POST['freedomain'];
-  $languagetechnology=$_POST['languagetechnology'];
-  $mailbox=$_POST['mailbox'];
-  $data=$product->productDescriptionAddition($productcategory, $productname, $pageurl, $monthlyprice, $annualprice, $sku, $webspace, $bandwidth,  $freedomain, $languagetechnology, $mailbox);
-  if ($data!=false){
-    echo "<script>alert('product Description added successfully');</script>";
-  } else {
-    echo "<script>alert('Product Description Addition Failed');</script>";
-  }
+if (isset($_POST['submit'])) {
+    $productcategory=$_POST['productcategory'];
+    $productname=$_POST['productname'];
+    $pageurl=$_POST['pageurl'];
+    $monthlyprice=$_POST['monthlyprice'];
+    $annualprice=$_POST['annualprice'];
+    $sku=$_POST['sku'];
+    $webspace=$_POST['webspace'];
+    $bandwidth=$_POST['bandwidth'];
+    $freedomain=$_POST['freedomain'];
+    $languagetechnology=$_POST['languagetechnology'];
+    $mailbox=$_POST['mailbox'];
+    $data=$product->productDescriptionAddition($productcategory, $productname, $pageurl, $monthlyprice, $annualprice, $sku, $webspace, $bandwidth,  $freedomain, $languagetechnology, $mailbox);
+    if ($data!=false) {
+      echo "<script>alert('product Description added successfully');</script>";
+    } else {
+      echo "<script>alert('Product Description Addition Failed');</script>";
+    }
 }
 ?>
 <?php
@@ -523,8 +523,9 @@ $product=new tbl_product();
                         for="languagetechnology">Language/ Technology Support
                         <span class="important-field"> *</span> </label>
                         <input type="text" id="languagetechnology" 
-                        class="form-control" placeholder="Language or 
-                        Technology Support" name="languagetechnology">
+                        class="form-control" 
+                        placeholder="Language or Technology Support" 
+                        name="languagetechnology">
                         <small class="text-muted">Separate by (,) 
                         Ex: PHP, MySQL, MongoDB</small>
                         <div class="invalid-feedback">
@@ -563,8 +564,6 @@ $product=new tbl_product();
       <div class="row">
       </div>
       <script>
-        $( document ).ready(function() {
-          $("#createcategory").prop('disabled', true);
           var inputstatecount=0;
           var productnamecount=0;
           var monthlypricecount=0;
@@ -575,6 +574,8 @@ $product=new tbl_product();
           var freedomaincount=0;
           var languagetechnologycount=0;
           var mailboxcount=0;
+        $(document).ready(function() {
+          $("#createcategory").prop('disabled', true);
         });
         $('#inputState').focusout(function(){
           inputState();
@@ -602,7 +603,7 @@ $product=new tbl_product();
          productName();
         });
         function productName(){
-          var regproductname=/(^([a-zA-Z]+\-[0-9]+$))|(^([a-zA-Z])+$)/;
+          var regproductname=/(^([a-zA-Z]+\s?)|([a-zA-Z]+\-[0-9]+$))|(^([a-zA-Z])+$)/;
           var value=($('#productname').val()).trim();
           if (value=="" || !(value.match(regproductname))) {
             $("#productname").addClass("is-invalid");
@@ -626,7 +627,7 @@ $product=new tbl_product();
         function monthlyPrice(){
           var regprice=/^([0-9]+\.[0-9]+$)|(^([0-9])+$)/;
           var value=($('#monthlyprice').val()).trim();
-          if (value=="" || !(value.match(regprice))) {
+          if (value=="" || !(value.match(regprice)) || value.length>15) {
             $("#monthlyprice").addClass("is-invalid");
             $("#createcategory").prop('disabled', true);
             monthlypricecount=0;
@@ -649,7 +650,7 @@ $product=new tbl_product();
         function annualPrice(){
           var regprice=/^([0-9]+\.[0-9]+$)|(^([0-9])+$)/;
           var value=($('#annualprice').val()).trim();
-          if (value=="" || !(value.match(regprice))) {
+          if (value=="" || !(value.match(regprice)) || value.length>15) {
             $("#annualprice").addClass("is-invalid");
             $("#createcategory").prop('disabled', true);
             annualpricecount=0;
@@ -695,7 +696,7 @@ $product=new tbl_product();
         function webSpace(){
           var regwebspace=/^([0-9]+\.[0-9]+$)|(^([0-9])+$)/;
           var value=($('#webspace').val()).trim();
-          if (value=="" || !(value.match(regwebspace))) {
+          if (value=="" || !(value.match(regwebspace)) || value.length>5) {
             $("#webspace").addClass("is-invalid");
             $("#createcategory").prop('disabled', true);
             webspacecount=0;
@@ -718,7 +719,7 @@ $product=new tbl_product();
         function bandWidth(){
           var regbandwidth=/^([0-9]+\.[0-9]+$)|(^([0-9])+$)/;
           var value=($('#bandwidth').val()).trim();
-          if (value=="" || !(value.match(regbandwidth))) {
+          if (value=="" || !(value.match(regbandwidth)) || value.length>5) {
             $("#bandwidth").addClass("is-invalid");
             $("#createcategory").prop('disabled', true);
             bandwidthcount=0;
@@ -826,9 +827,12 @@ $product=new tbl_product();
             alert("Please Enter All Required Fields");
             return false;
           }
-          else if(!isNaN(productname)){
-            alert("Please Enter Valid Product Name");
-            return false;
+          else if(monthlyprice>annualprice){
+          alert("Please Enter monthly price less than annual price");
+          return false;
+          }
+          else {
+            return true;
           }
         }
       </script>

@@ -362,12 +362,11 @@ include "header.php";
               <table class="table align-items-center table-flush" id="showProduct">
                 <thead class="thead-light">
                     <tr>
-                        <th>ID</th>
-                        <th>Product Parent ID</th>
-                        <th>Product Name</th>
+                        <th>Category Parent Name</th>
+                        <th>Category Name</th>
                         <th>Link</th>
-                        <th>Product Availability</th>
-                        <th>Product Launch Date</th>
+                        <th>category Availability</th>
+                        <th>Category Launch Date</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -496,8 +495,9 @@ include "header.php";
     $('#createcategory').click(function(){
       var productname=($('#productname').val()).trim();
       var link=($('#link').val()).trim();
-      if (productname=="") {
-        alert("please enter product name");
+      var regproductname=/(^(a-zA-Z+\.+[a-zA-Z0-9]+\s?)+$)|(^([a-zA-Z]+\s?)+$)/;
+      if (productname=="" || !(productname.match(regproductname))) {
+        alert("please enter valid product name");
       }
       else {
         $.ajax({

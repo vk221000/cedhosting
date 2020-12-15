@@ -9,15 +9,13 @@ if (isset($_POST['productadd'])) {
 }
 if (isset($_GET['showproduct'])) {
     $data=$product->showProductBYCategory();
-    if ($data!=false) {
-        print_r(json_encode($data));
-    }
+    print_r(json_encode($data));
 }
 if (isset($_GET['showproducts'])) {
     $data=$product->showProductsBYCategory();
-    if ($data!=false) {
-        print_r(json_encode($data));
-    }
+    print_r($data);
+  
+
 }
 if (isset($_POST['manageproductbycategory'])) {
     $id=$_POST['id'];
