@@ -17,17 +17,18 @@
 include_once 'tbl_product.php';
 $product=new tbl_product();
 if (isset($_POST['submit'])) {
-    $productcategory=$_POST['productcategory'];
-    $productname=$_POST['productname'];
-    $pageurl=$_POST['pageurl'];
-    $monthlyprice=$_POST['monthlyprice'];
-    $annualprice=$_POST['annualprice'];
-    $sku=$_POST['sku'];
-    $webspace=$_POST['webspace'];
-    $bandwidth=$_POST['bandwidth'];
-    $freedomain=$_POST['freedomain'];
-    $languagetechnology=$_POST['languagetechnology'];
-    $mailbox=$_POST['mailbox'];
+    $productcategory=trim($_POST['productcategory']);
+    $productname=trim($_POST['productname']);
+    $pageurl=trim($_POST['pageurl']);
+    $monthlyprice=trim($_POST['monthlyprice']);
+    $annualprice=trim($_POST['annualprice']);
+    $sku=trim($_POST['sku']);
+    $webspace=trim($_POST['webspace']);
+    $bandwidth=trim($_POST['bandwidth']);
+    $freedomain=trim($_POST['freedomain']);
+    $languagetechnology=trim($_POST['languagetechnology']);
+    $languagetechnology=rtrim($languagetechnology, ",");
+    $mailbox=trim($_POST['mailbox']);
     $data=$product->productDescriptionAddition($productcategory, $productname, $pageurl, $monthlyprice, $annualprice, $sku, $webspace, $bandwidth,  $freedomain, $languagetechnology, $mailbox);
     if ($data!=false) {
       echo "<script>alert('product Description added successfully');</script>";
@@ -671,7 +672,7 @@ $product=new tbl_product();
           sku();
         });
         function sku(){
-          var regsku=/^(([a-zA-Z0-9-#?]+)([a-zA-Z0-9]+))|(([a-zA-Z0-9-#?]+)([a-zA-Z0-9]+)([-#?]))+$/;
+          var regsku=/^(?![!@#$%^&*()_+=-`~?|]*$)[a-zA-Z0-9-#]+$/;
           var value=($('#sku').val()).trim();
           if (value=="" || !(value.match(regsku))) {
             $("#sku").addClass("is-invalid");
@@ -764,7 +765,7 @@ $product=new tbl_product();
           languageTechnology();
         });
         function languageTechnology(){
-          var reglanguagetech=/(^([a-zA-Z]+[0-9]+\,[a-zA-Z]+[0-9]+$))|(^([a-zA-Z]+[0-9]+\,[a-zA-Z]+$))|(^([a-zA-Z]+\,[a-zA-Z]+[0-9]+$))|(^([a-zA-Z]+\,[a-zA-Z]+$))|(^([a-zA-Z])+$)/;
+          var reglanguagetech=/^((?![0-9]+$)[a-zA-Z0-9]+\,?\s?)+$/;
           var value=($('#languagetechnology').val()).trim();
           if (value=="" || !(value.match(reglanguagetech))) {
             $("#languagetechnology").addClass("is-invalid");

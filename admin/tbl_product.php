@@ -71,6 +71,14 @@ class tbl_product
         }
         return false;
     }
+    public function duplicateCategoryCheck($catvalue) {
+        $sql="SELECT * FROM `tbl_product` WHERE `prod_parent_id`='1' AND `prod_name` LIKE '$catvalue'";
+        $data=$this->conn->query($sql);
+        if ($data->num_rows>0) {
+            return true;
+        } 
+        return false;
+    }
     /**
      * Update Product Category
      *                
@@ -380,7 +388,12 @@ class tbl_product
     public function getPageHeading($id) {
         $sql="SELECT * FROM `tbl_product` WHERE `id`='$id'";
         $data=$this->conn->query($sql);
-        return $data->fetch_assoc();
+        if ($data->num_rows>0) {
+            return $data->fetch_assoc();
+        } else {
+            return false;
+        }
+       
     }
 }
 ?>

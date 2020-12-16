@@ -132,7 +132,7 @@ if (isset($_POST['submit'])){
             var password=($('#password').val()).trim();
             var repassword=($('#repassword').val()).trim();
             var regName=/^([a-zA-Z]+\s?)*$/;
-            var regPassword=/^(?!.*)(?=.*\d)(?=.*[A-Z]).{8,15}$/;
+            var regPassword=/^(?!.* )(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/;
             var regMobile=/^(0)?[1-9]{1}[0-9]{9}$/;
             var regEmail=/^[a-zA-Z0-9.-]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,4}$/;
             if (name=="" || email=="" || mobile=="" || security_question=="" || answer=="" || password=="" || repassword=="") {
@@ -159,8 +159,26 @@ if (isset($_POST['submit'])){
                 alert("please enter same password and repassword");
                 return false;
             }
+            else if (!isNaN(answer)) {
+                alert("please enter valid answers i.e, only digits are not allowed");
+                return false;
+            }
             return true;
         }
+        // function mobileCheck(mobile){
+        //     var temp=0;
+        //     for (i=0;i<mobile.length;i++) {
+        //         if (mobile[1]==mobile[i]) {
+        //             temp+=1;
+        //         }
+        //     }
+        //     if (temp>=5) {
+        //         return false;
+        //     }
+        //     else {
+        //         return true;
+        //     }
+        // }
     </script>
 <!-- registration -->
 </div>

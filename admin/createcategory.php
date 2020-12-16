@@ -327,12 +327,11 @@ include "header.php";
                 </div>
                 <div class="form-group">
                   <div class="input-group input-group-merge input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                      <div class="input-group-prepend">
+                          <textarea class="editor form-group link" placeholder="HTML" name="editor"></textarea>
+                      </div>
                     </div>
-                    <input class="form-control" placeholder="Link" type="link" id="link">
                   </div>
-                </div>
                 <div class="row my-4">
                   <div class="col-12">
                     <div class="custom-control custom-control-alternative custom-checkbox">
@@ -400,14 +399,22 @@ include "header.php";
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                       </div>
-                      <input class="form-control" value="Hosting" type="text" disabled>
+                      <?php
+                        include_once "tbl_product.php";
+                        $product=new tbl_product();
+                        $row=$product->getMainCategory();
+                        if ($row!=false) {
+                          echo '<input class="form-control" value="   '.$row[0]['prod_name'].'" type="text" disabled>';
+                        }
+                        else{
+                          echo '<input class="form-control"  placeholder="Product Category" type="text">';
+                        }
+                      ?>
                     </div>
                   </div>
                   <div class="form-group">
-                  <!-- <label class="mr-sm-2" for="inlineFormCustomSelect">Category ID</label> -->
                     <div class="input-group input-group-alternative">
                       <div class="input-group-prepend">
-                        <!-- <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span> -->
                       </div>
                       <input class="form-control" type="hidden" id="category-id-update" disabled>
                     </div>
@@ -422,12 +429,11 @@ include "header.php";
                     </div>
                   </div>
                   <div class="form-group">
-                  <label class="mr-sm-2" for="inlineFormCustomSelect">Link</label>
-                    <div class="input-group input-group-alternative">
+                  <label class="mr-sm-2" for="inlineFormCustomSelect">Html</label>
+                  <div class="input-group input-group-merge input-group-alternative">
                       <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                          <textarea class="editor form-group" placeholder="html" id="link-update"></textarea>
                       </div>
-                      <input class="form-control" placeholder="link" type="link" id="link-update">
                     </div>
                   </div>
                   <div class="form-group">
@@ -459,8 +465,12 @@ include "header.php";
     var link=($('#link-update').val()).trim();
     var availability=$('#availability-update').val();
     var categoryid=$('#category-id-update').val();
+    var regproductname=/^(?![0-9]*$)([a-zA-Z]+\s?)*([0-9]+\.?)*$/;
     if (availability=="Choose..." || productname=="") {
       alert('please fill product name and availibility');
+    }
+    else if (!(productname.match(regproductname))) {
+      alert("please enter valid product name");
     }
     else if(!isNaN(productname)){
       alert('product name can not be all numbers');
@@ -494,8 +504,8 @@ include "header.php";
   });
     $('#createcategory').click(function(){
       var productname=($('#productname').val()).trim();
-      var link=($('#link').val()).trim();
-      var regproductname=/(^(a-zA-Z+\.+[a-zA-Z0-9]+\s?)+$)|(^([a-zA-Z]+\s?)+$)/;
+      var link=($('.link').val()).trim();
+      var regproductname=/^(?![0-9]*$)([a-zA-Z]+\s?)*([0-9]+\.?)*$/;
       if (productname=="" || !(productname.match(regproductname))) {
         alert("please enter valid product name");
       }
@@ -509,8 +519,12 @@ include "header.php";
             productadd:true
           },
           success:function(msg){
-            alert("Subcategory Added successfully");
-            location.reload();
+            if (msg=="Duplicate Category Name is Not Allowed") {
+              alert("Duplicate Category Name is Not Allowed");
+            } else {
+              alert("Subcategory Added successfully");
+              location.reload();
+            }
           },
           error:function(){
             alert("error");

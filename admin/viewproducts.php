@@ -626,17 +626,18 @@ $product=new tbl_product();
     }
   });
     $('#createcategory').click(function(){
-      var id=$('#id').val();
-      var productcategory=$('#inputState').val();
-      var productname=$('#productname').val();
-      var pageurl=$('#pageurl').val();
-      var monthlyprice=$('#monthlyprice').val();
-      var annualprice=$('#annualprice').val();
-      var sku=$('#sku').val();
-      var webspace=$('#webspace').val();
-      var bandwidth=$('#bandwidth').val();
-      var freedomain=$('#freedomain').val();
-      var languagetechnology=$('#languagetechnology').val();
+      var id=($('#id').val()).trim();
+      var productcategory=($('#inputState').val()).trim();
+      var productname=($('#productname').val()).trim();
+      var pageurl=($('#pageurl').val()).trim();
+      var monthlyprice=($('#monthlyprice').val()).trim();
+      var annualprice=($('#annualprice').val()).trim();
+      var sku=($('#sku').val()).trim();
+      var webspace=($('#webspace').val()).trim();
+      var bandwidth=($('#bandwidth').val()).trim();
+      var freedomain=($('#freedomain').val()).trim();
+      var languagetechnology=($('#languagetechnology').val()).trim();
+      languagetechnology=languagetechnology.replace(/,+$/,'');
       var mailbox=$('#mailbox').val();
       if (productcategory=="" || productname==""  ||monthlyprice=="" 
       || annualprice=="" || sku=="" || webspace=="" || bandwidth=="" 
@@ -813,7 +814,7 @@ $product=new tbl_product();
       sku();
     });
     function sku(){
-      var regsku=/^(([a-zA-Z0-9-#?]+)([a-zA-Z0-9]+))|(([a-zA-Z0-9-#?]+)([a-zA-Z0-9]+)([-#?]))+$/;
+      var regsku=/^(?![!@#$%^&*()_+=-`~?|]*$)[a-zA-Z0-9-#]+$/;
       var value=($('#sku').val()).trim();
       if (value=="" || !(value.match(regsku))) {
         $("#sku").addClass("is-invalid");
@@ -882,7 +883,7 @@ $product=new tbl_product();
       languageTechnology();
     });
     function languageTechnology(){
-      var reglanguagetech=/(^([a-zA-Z]+[0-9]+\,[a-zA-Z]+[0-9]+$))|(^([a-zA-Z]+[0-9]+\,[a-zA-Z]+$))|(^([a-zA-Z]+\,[a-zA-Z]+[0-9]+$))|(^([a-zA-Z]+\,[a-zA-Z]+$))|(^([a-zA-Z])+$)/;
+      var reglanguagetech=/^((?![0-9]+$)[a-zA-Z0-9]+\,?\s?)+$/;
       var value=($('#languagetechnology').val()).trim();
       if (value=="" || !(value.match(reglanguagetech))) {
         $("#languagetechnology").addClass("is-invalid");

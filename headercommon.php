@@ -7,7 +7,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <?php
 session_start();
 $actual_link = $_SERVER["PHP_SELF"];
-$hosting_urls=array('/cedhosting/linuxhosting.php','/cedhosting/wordpresshosting.php','/cedhosting/windowshosting.php','/cedhosting/cmshosting.php');
 ?>
 <!DOCTYPE HTML>
 <html>

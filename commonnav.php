@@ -26,7 +26,7 @@ $product=new tbl_product();
                         <li class=<?php echo ($actual_link=='/cedhosting/index.php')? "active" : "" ?>><a href="index.php">Home <i class="sr-only">(current)</i></a></li>
                         <li class=<?php echo ($actual_link=='/cedhosting/about.php')? "active" : "" ?>><a href="about.php">About</a></li>
                         <li class=<?php echo ($actual_link=='/cedhosting/services.php')? "active" : "" ?>><a href="services.php">Services</a></li>
-                        <li class="dropdown<?php echo (in_array($actual_link, $hosting_urls)) ? " active" : ""?>" >
+                        <li class="dropdown<?php echo ($actual_link=='/cedhosting/catpage.php')? " active" : ""?>" >
                             <a  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >Hosting<i class="caret"></i></a>
                             <ul class="dropdown-menu" >
                             <?php

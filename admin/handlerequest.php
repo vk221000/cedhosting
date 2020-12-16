@@ -4,8 +4,14 @@ $product=new tbl_product();
 if (isset($_POST['productadd'])) {
     $productname=$_POST['productname'];
     $link=$_POST['link'];
-    $data=$product->insertProductBYCategory($productname, $link);
-    echo true;
+    $duplicatecheck=$product->duplicateCategoryCheck($productname);
+    if ($duplicatecheck) {
+        echo "Duplicate Category Name is Not Allowed";
+    } else {
+        $data=$product->insertProductBYCategory($productname, $link);
+        echo true;
+    }
+
 }
 if (isset($_GET['showproduct'])) {
     $data=$product->showProductBYCategory();

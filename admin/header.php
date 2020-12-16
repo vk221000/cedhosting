@@ -13,6 +13,17 @@ $actual_link = $_SERVER["PHP_SELF"];
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
   <meta name="author" content="Creative Tim">
+  <!-- text editor -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <script src="https://cdn.tiny.cloud/1/u6d5o7rruhkaxjxww0o6wuw5mrey0bszj45q3d6t66n2nvzw/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+  <script>
+  tinymce.init({
+      selector: 'textarea.editor',
+      menubar: false
+  });
+  </script>
+  <!-- text editor -->
   <title>Admin Dashboard</title>
   <!-- Favicon -->
   <link rel="icon" href="assets/img/brand/favicon.png" type="image/png">
@@ -50,6 +61,10 @@ $actual_link = $_SERVER["PHP_SELF"];
   <link rel="stylesheet" 
   href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
   <!-- datatable css-->
+  
+  <!-- text area -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  
 </head>
 
 <body>

@@ -5,10 +5,12 @@ if (isset($_GET['id'])) {
     $product=new tbl_product();
     $heading=$product->getPageHeading($id);
     $datacon=$product->getCatPageData($id);
-    echo '<pre>';
-    print_r($datacon);
-    echo '</pre>';
-    $html1=$datacon[0]['link'];
+    if ($heading==false || $datacon==false) {
+        header("location:index.php");
+    }
+    $html1=$heading['html'];
+} else {
+    header('Location:index.php');
 }
 require_once "headercommon.php";
 ?>
@@ -36,7 +38,22 @@ require_once "headercommon.php";
                     <a href="#myTab">view plans</a>
                 </div>
                 <div class="col-md-4 linux-grid1">
-                    <img src="images/linux.png" class="img-responsive" alt=""/>
+                    <?php
+                    $patternarray=array("/window/i", "/word/i", "/cms/i", "/linux/i", "/mac/i");
+                    $temp=true;
+                    foreach ($patternarray as $val) {
+                        if (preg_match($val, $heading['prod_name'])) {
+                            $temp=false;
+                            $str=str_replace("/", "", $val);
+                            $strfinal=rtrim($str, "i");
+                            echo '<img src="images/'.$strfinal.'.png" class="img-responsive" alt=""/>';
+                            break;
+                        }
+                    }
+                    if ($temp==true) {
+                        echo '<img src="images/window.png" class="img-responsive" alt=""/>';
+                    }
+                    ?>
                 </div>
                 <div class="clearfix"></div>
             </div>
