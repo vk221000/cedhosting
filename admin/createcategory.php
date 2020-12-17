@@ -328,7 +328,7 @@ include "header.php";
                 <div class="form-group">
                   <div class="input-group input-group-merge input-group-alternative">
                       <div class="input-group-prepend">
-                          <textarea class="editor form-group link" placeholder="HTML" name="editor"></textarea>
+                          <textarea class="editor form-group link"  placeholder="HTML" name="editor"></textarea>
                       </div>
                     </div>
                   </div>

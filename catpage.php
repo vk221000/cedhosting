@@ -64,7 +64,7 @@ require_once "headercommon.php";
             <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
                 <div id="myTabContent" class="tab-content justify-content-center">
                     <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
-                        <div class="linux-prices">
+                        <div class="linux-prices" id="myTab">
                             <?php
                             $html="";
                             for ($i=0;$i<count($datacon);$i++) {
@@ -86,7 +86,7 @@ require_once "headercommon.php";
                                         <li><strong>location</strong> : <img src="images/india.png"></li>
                                         </ul>
                                     </div>
-                                    <a href="#">buy now</a>
+                                    <a href="javascript:void(0)" data-id='.$datacon[$i]["prod_id"].' id="addtocart">buy now</a>
                                 </div>';
                             }
                             print_r($html);
@@ -184,6 +184,25 @@ require_once "headercommon.php";
             </div>
         </div>
     </div>
+    <script>
+        $('#myTab').on('click','#addtocart',function(){
+            var prod_id=$(this).data('id');
+            $.ajax({
+                url: 'admin/handlerequest.php',
+                method: 'post',
+                data: {
+                    prodid: prod_id,
+                    addtocart: true
+                },
+                success: function(msg){
+                    $(location).attr('href','cart.php');
+                },
+                error: function(){
+                    alert("error in fetching product");
+                }
+            });
+        });
+    </script>
 
 </div>
 <?php

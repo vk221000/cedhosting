@@ -42,7 +42,7 @@ $product=new tbl_product();
                         <li class=<?php echo ($actual_link=='/cedhosting/pricing.php')? "active" : "" ?>><a href="pricing.php">Pricing</a></li>
                         <li class=<?php echo ($actual_link=='/cedhosting/blog.php')? "active" : "" ?>><a href="blog.php">Blog</a></li>
                         <li class=<?php echo ($actual_link=='/cedhosting/contact.php')? "active" : "" ?>><a href="contact.php">Contact</a></li>
-                        <li><a href="#" id="fa-fa-font-size"><i class="fa fa-shopping-cart"></i></a></li>
+                        <li class=<?php echo ($actual_link=='/cedhosting/cart.php')? "active" : "" ?>><a href="cart.php" id="fa-fa-font-size"><i class="fa fa-shopping-cart"></i></a></li>
                         <?php
                         if (isset($_SESSION['user'])) {
                             echo '<li><a href="logout.php">Logout</a></li>';

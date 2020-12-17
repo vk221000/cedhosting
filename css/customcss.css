@@ -28,3 +28,18 @@
     margin-left: 0px;
     padding-left: 5px;
 }
+#deletecartproduct i {
+    font-size: x-large;
+}
+#checkoutbutton{
+    text-decoration: none;
+    color: #e7663f ;
+    padding: 10px 25px;
+    background-color:  #585CA7;
+    margin: 10px;
+    float: right;
+}
+#checkoutbutton:hover{
+    color: white;
+    background-color: green;
+}
