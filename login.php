@@ -16,7 +16,9 @@ if (isset($_POST['submit'])) {
     if ($data==false) {
         $error="Email or Password dosen't match";
     } else {
-        $error="please verify your mobile and/or email to get access";
+        $_SESSION['email']=$data['email'];
+        $_SESSION['name']=$data['name'];
+        $_SESSION['mobile']=$data['mobile'];
         header('Location:verificationpage.php');
     }
 }

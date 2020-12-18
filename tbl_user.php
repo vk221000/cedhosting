@@ -56,7 +56,7 @@ class tbl_user
                 $_SESSION['admin']=array($row['id'],$row['email'],$row['name']);
                 header('Location:admin/');
             } else {
-                return "please verify your mobile and/or email to get access";
+                return $row;
             }
         }
         return false;
@@ -105,6 +105,18 @@ class tbl_user
             return true;
         }
         return false;
+    }
+    
+    public function verifyEmail($email) {
+        $sql="UPDATE `tbl_user` SET `active` = '1',`email_approved`='1' WHERE `email` = '$email'";
+        $data=$this->conn->query($sql);
+        return true;
+    }
+    
+    public function verifyPhone($phone) {
+        $sql="UPDATE `tbl_user` SET `active` = '1',`phone_approved`='1' WHERE `mobile` = '$phone'";
+        $data=$this->conn->query($sql);
+        return true;
     }
 }
 ?>

@@ -27,6 +27,9 @@ if (isset($_POST['submit'])){
         $data=$user->userSignup($name,$email,$mobile,$security_question,$answer,$password);
         if ($data!=false){
             $success="sign up completed";
+            $_SESSION['email']=$email;
+            $_SESSION['name']=$name;
+            $_SESSION['mobile']=$mobile;
             header('Location:verificationpage.php');
             // echo "<script>alert('signup completed please verify your email and/or phone no. to get access.');</script>";
         }
@@ -165,24 +168,8 @@ if (isset($_POST['submit'])){
             }
             return true;
         }
-        // function mobileCheck(mobile){
-        //     var temp=0;
-        //     for (i=0;i<mobile.length;i++) {
-        //         if (mobile[1]==mobile[i]) {
-        //             temp+=1;
-        //         }
-        //     }
-        //     if (temp>=5) {
-        //         return false;
-        //     }
-        //     else {
-        //         return true;
-        //     }
-        // }
     </script>
-<!-- registration -->
 </div>
-<!-- login -->
 <?php
 require_once "footer.php";
 ?>

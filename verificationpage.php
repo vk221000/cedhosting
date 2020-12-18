@@ -1,12 +1,21 @@
 <?php
-include "headercommon.php";
+require_once "headercommon.php";
+$emailsuccess="";
+$emailfailure="";
+$phonesuccess="";
+$phonefailure="";
+if (!isset($_SESSION['name'])) {
+    header('Location:login.php');
+}
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 require '/home/cedcoss/vendor/autoload.php';
 if (isset($_POST['emailsubmit'])) {
-    $otp = rand(1000,9999);
+    $otp = rand(1000, 9999);
     $_SESSION['otp']=$otp;
     $mail = new PHPMailer();
+    $email=$_SESSION['email'];
+    $name=$_SESSION['name'];
     try {
         $mail->isSMTP(true);
         $mail->Host = 'smtp.gmail.com';
@@ -22,19 +31,25 @@ if (isset($_POST['emailsubmit'])) {
 
         $mail->isHTML(true);
         $mail->Subject = 'Account Verification';
-        $mail->Body = 'Hi User,Here is your otp for account verification: '.$otp;
+        $mail->Body = 'Hi '.$name.',Here is your otp for account verification: '.$otp;
         $mail->AltBody = 'Body in plain text for non-HTML mail clients';
         $mail->send();
+        $emailsuccess="otp sent successfully";
         // header('location: verification.php?email=' . $email);
     } catch (Exception $e) {
         echo "Mailer Error: " . $mail->ErrorInfo;
+        $emailfailure="some unexpected error occured";
     }
 }
 if (isset($_POST['mobilesubmit'])) {
+    $mobile=$_SESSION['mobile'];
+    $name=$_SESSION['name'];
+    $otp = rand(1000, 9999);
+    $_SESSION['mobileotp']=$otp;
     /**mobile otp */
     $fields = array(
         "sender_id" => "FSTSMS",
-        "message" => "This is Test message" . $otp,
+        "message" => 'Hi '.$name.',Here is your otp for account verification: '.$otp,
         "language" => "english",
         "route" => "p",
         "numbers" => "$mobile",
@@ -64,88 +79,127 @@ if (isset($_POST['mobilesubmit'])) {
     curl_close($curl);
     
     if ($err) {
-        echo "cURL Error #:" . $err;
+        $phonefailure=$err;
     } else {
-        echo $response;
+        $phonesuccess=$response;
+    }
+}
+$verifiedemail="";
+if (isset($_POST['verifyemailotp'])) {
+    $otpemail=$_POST['emailotp'];
+    if (isset($_SESSION['otp'])) {
+        if ($otpemail=$_SESSION['otp']) {
+            require_once 'tbl_user.php';
+            $user=new tbl_user();
+            $data=$user->verifyEmail($_SESSION['email']);
+            $verifiedemail="your email has been verified successfully";
+            unset($_SESSION['otp']);
+            unset($_SESSION['email']);
+        } else {
+            $verifiedemail="Please Enter Correct OTP";
+        }
+    } else {
+        $verifiedemail="Please Click on Send OTP First";
+    }
+}
+$verifiedphone="";
+if (isset($_POST['verifymobileotp'])) {
+    $otpmobile=$_POST['mobileotp'];
+    if (isset($_SESSION['mobileotp'])) {
+        if ($otpmobile=$_SESSION['mobileotp']) {
+            require_once 'tbl_user.php';
+            $user=new tbl_user();
+            $data=$user->verifyPhone($_SESSION['mobile']);
+            $verifiedphone="your phone has been verified successfully";
+            unset($_SESSION['mobileotp']);
+            unset($_SESSION['mobile']);
+        } else {
+            $verifiedphone="Please Enter Correct OTP";
+        }
+    } else {
+        $verifiedphone="Please Click on Send OTP First";
     }
 }
 ?>
 <link rel="stylesheet" href="css/swipebox.css">
-			<script src="js/jquery.swipebox.min.js"></script> 
-			    <script type="text/javascript">
-					jQuery(function($) {
-						$(".swipebox").swipebox();
-					});
-				</script>
+            <script src="js/jquery.swipebox.min.js"></script> 
+                <script type="text/javascript">
+                    jQuery(function($) {
+                        $(".swipebox").swipebox();
+                    });
+                </script>
 <!--script-->
 </head>
 <body>
 <?php include_once "commonnav.php";?>
 <!---login--->
 <div class="content">
-	<div class="main-1">
-		<div class="container">
-			<div class="login-page">
-				<div class="account_grid">
-					<div class="col-md-6 login-right">
+    <div class="main-1">
+        <div class="container">
+            <div class="login-page">
+                <div class="account_grid">
+                <div class="row">
+                    <div class="col-md-5 login-right pull-left">
                     <h3>Verify Email</h3>
-						<form>
-							<div>
-							<span>Email Address<label>*</label></span>
-							<input type="text" id="email" name="email" required> 
-							</div>
+                        <form action='verificationpage.php' method="post">
                             <input type="submit" value="Get OTP" id="email-submit" name="emailsubmit">
-							<div>
+                        <div class="success-msg"><?php echo(isset($emailsuccess))? $emailsuccess: "" ?></div>
+                        <div class="error-msg"><?php echo(isset($emailfailure))? $emailfailure: "" ?></div>
+                            <div>
                             </div>
                             <div>
-                                <span>Enter OTP<label>*</label></span>
+                        </form>
+                        <form action='verificationpage.php' method="post">
+                            <div>
+                            <span>Enter OTP<label>*</label></span>
                                 <input type="text" name="emailotp" id="emailotp" required> 
                             </div>
-							<input type="submit" value="Verify OTP" id="verifyemailotp" name="verifyemailotp">
-						</form>
-						<div class="error-msg"><?php echo(isset($error))? $error: "" ?></div>
-					</div>
-					<div class="col-md-6 login-right">
-						<h3>Verify Mobile Number</h3>
-						<form>
-							<div>
-							<span>Mobile Number<label>*</label></span>
-							<input type="text" id="mobile" name="mobile" required> 
-							</div>
-                            <input type="submit" value="Get OTP" id="mobile-submit" name="mobilesubmit">
-							<div>
+                            <input type="submit" value="Verify OTP" id="verifyemailotp" name="verifyemailotp">
+                            <div class="success-msg"><?php echo(isset($verifiedemail))? $verifiedemail: "" ?></div>
+                            <div>
                             </div>
                             <div>
-                                <span>Enter OTP<label>*</label></span>
+                        </form>
+                    </div>
+                    </div>
+                    </div>
+                  
+                    <div class="col-md-5 login-right pull-right">
+                        <h3>Verify Mobile Number</h3>
+                        <form method="post" action="verificationpage.php">
+                            <input type="submit" value="Get OTP" id="mobile-submit" name="mobilesubmit">
+                            <div class="success-msg"><?php echo(isset($phonesuccess))? $phonesuccess: "" ?></div>
+                            <div class="error-msg"><?php echo(isset($phonefailure))? $phonefailure: "" ?></div>
+                            <div>
+                            </div>
+                            <div>
+                        </form>
+                        <form method="post" action="verificationpage.php">
+                            <div>
+                            <span>Enter OTP<label>*</label></span>
                                 <input type="text" name="mobileotp" id="mobileotp" required> 
                             </div>
-							<input type="submit" value="Verify OTP" id="verifymobileotp" name="verifymobileotp">
-						</form>
-						<div class="error-msg"><?php echo(isset($error))? $error: "" ?></div>
-					</div>	
-					<div class="clearfix"> </div>
-				</div>
-			</div>
-		</div>
-	</div>
+                            <input type="submit" value="Verify OTP" id="verifymobileotp" name="verifymobileotp">
+                            <div class="success-msg"><?php echo(isset($verifiedphone))? $verifiedphone: "" ?></div>
+                            <div>
+                            </div>
+                            <div>
+                        </form>
+                    </div>	
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- login -->
 <script>
     $('#email-submit').click(function(){
-        var email=$('#email').val();
-        alert(email);
-    });
-    $('#verifyemailotp').click(function(){
-        var emailotp=$('#emailotp').val();
-        alert(emailotp);
+        $(this).hide();
     });
     $('#mobile-submit').click(function(){
-        var mobile=$('#mobile').val();
-        alert(mobile);
-    });
-    $('#verifymobileotp').click(function(){
-        var mobileotp=$('#mobileotp').val();
-        alert(mobileotp);
+        $(this).hide();
     });
 </script>
 <?php
