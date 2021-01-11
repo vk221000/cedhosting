@@ -15,7 +15,7 @@ require_once "commonnav.php";
                         <th>Product ID</th>
                         <th>Product Name</th>
                         <th>Monthly Price</th>
-                        <th>Annual Price</th>
+                        <th>SKU</th>
                         <th>Quantity</th>
                         <th>Action</th>
                     </tr>

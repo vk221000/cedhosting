@@ -105,7 +105,7 @@ if (isset($_POST['addtocart'])) {
     }
     if ($temp==true) {
         $data=$product->addToCart($prodid);
-        $_SESSION['cartdata'][]=[$data['prod_id'], $data['prod_name'], $data['mon_price'], $data['annual_price'], 1, "<a href='javascript:void(0)' data-id=".$data['prod_id']." id='deletecartproduct'><i class='fa fa-trash' aria-hidden='true'></i></a>"];
+        $_SESSION['cartdata'][]=[$data['prod_id'], $data['prod_name'], $data['mon_price'], $data['sku'], 1, "<a href='javascript:void(0)' data-id=".$data['prod_id']." id='deletecartproduct'><i class='fa fa-trash' aria-hidden='true'></i></a>"];
     }
     print_r($_SESSION['cartdata']);
 }
